@@ -216,12 +216,17 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:backgroundTint="#FFFFFF"
-            app:fabSize="mini"
-            app:srcCompat="@android:drawable/ic_menu_mapmode"
+            android:layout_marginBottom="35dp"
+            android:contentDescription="Añadir nuevo registro"
+            app:backgroundTint="#39FF14"
+            app:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@android:drawable/ic_input_add"
             app:tint="#0C1324" />
 
         <com.google.android.material.card.MaterialCardView
@@ -413,7 +418,9 @@
                 android:id="@+id/btn_directions"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:text="Como llegar"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
@@ -424,6 +431,8 @@
                 app:icon="@android:drawable/ic_menu_directions"
                 app:iconGravity="textStart"
                 app:iconTint="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_info_cards" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -538,12 +547,13 @@
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="21dp"
         app:backgroundTint="#39FF14"
         app:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintStart_toEndOf="@+id/img_map_background"
+        app:layout_constraintTop_toBottomOf="@+id/card_bottom_sheet"
         app:srcCompat="@android:drawable/ic_input_add"
         app:tint="#0C1324" />
 
