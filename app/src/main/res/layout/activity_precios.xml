@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
     android:background="#FDFBF7">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -172,31 +172,13 @@
         app:layout_constraintTop_toBottomOf="@id/top_section"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_precio_mercado" />
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
+
+
+    <include
+        android:id="@+id/nav_inferior"
+        layout="@layout/layout_nav_inferior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"
-        app:itemIconTint="#546E7A"
-        app:itemTextColor="#546E7A"
-        app:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/ic_add"
-        app:tint="#000000"
-        app:backgroundTint="#39FF14"
-        app:maxImageSize="32dp"
-        android:contentDescription="Agregar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:elevation="6dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

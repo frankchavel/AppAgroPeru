@@ -13,23 +13,10 @@
         android:layout_height="wrap_content"
         android:padding="24dp">
 
-        <EditText
-            android:id="@+id/et_riego"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/bg_white_rounded_border"
-            android:hint="   💧  Min."
-            android:inputType="number"
-            android:paddingHorizontal="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/label_riego"
-            tools:layout_editor_absoluteX="32dp" />
-
         <TextView
             android:id="@+id/tv_titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="Registro de Cultivo"
             android:textColor="#0C1324"
             android:textSize="26sp"
@@ -46,191 +33,208 @@
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/tv_titulo" />
 
-        <TextView
-            android:id="@+id/label_tipo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Tipo de Cultivo"
-            android:textColor="#0C1324"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_descripcion"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:id="@+id/spinner_cultivo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_white_rounded_border"
+        <EditText
+            android:id="@+id/et_buscar_cultivo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_search_bar"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawablePadding="12dp"
+            android:hint="Buscar producto (ej. Papa)..."
             android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:text="Tubérculo ▼"
-            android:textColor="#0C1324"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/label_tipo"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_descripcion" />
 
-        <GridLayout
-            android:id="@+id/grid_cultivos"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_opcion_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:columnCount="2"
-            android:rowCount="2"
-            android:alignmentMode="alignMargins"
-            app:layout_constraintTop_toBottomOf="@id/spinner_cultivo">
+            app:cardBackgroundColor="#E8F5E9"
+            app:strokeColor="#A5D6A7"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@id/et_buscar_cultivo">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_papa"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_columnWeight="1"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#E0E0E0"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="#FFFFFF">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_papa_amarilla"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:background="#E0E0E0"
+                    app:shapeAppearanceOverlay="@style/RoundedSquare"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_circle_gray"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_leaf"
-                        app:tint="#78909C" /> <TextView
+                <TextView
+                    android:id="@+id/tv_title_pa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Papa"
-                    android:textSize="16sp"
+                    android:text="Papa Amarilla"
                     android:textStyle="bold"
                     android:textColor="#0C1324"
-                    android:layout_marginTop="12dp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_papa_amarilla"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_maiz"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_columnWeight="1"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#E0E0E0"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="#FFFFFF">
+                <TextView
+                    android:id="@+id/tv_sub_pa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Variedad: Tumbay"
+                    android:textSize="10sp"
+                    android:textColor="#78909C"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_pa"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_pa"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                <TextView
+                    android:id="@+id/tv_precio_pa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S/ 4.50"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#0C1324"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_pa"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sub_pa"/>
 
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_circle_gray"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_corn"
-                        app:tint="#78909C" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" / kg"
+                    android:textSize="10sp"
+                    android:textColor="#78909C"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_precio_pa"
+                    app:layout_constraintStart_toEndOf="@id/tv_precio_pa"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Maíz"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#0C1324"
-                        android:layout_marginTop="12dp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="↑ 12%"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:textColor="#00C853"
+                    android:background="@drawable/bg_tendencia_positiva"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_cafe"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_columnWeight="1"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#E0E0E0"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="#FFFFFF">
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_opcion_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@id/card_opcion_1">
 
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_circle_gray"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_coffee"
-                        app:tint="#78909C" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Café"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#0C1324"
-                        android:layout_marginTop="12dp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_papa_yungay"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:background="#E0E0E0"
+                    app:shapeAppearanceOverlay="@style/RoundedSquare"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_quinua"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_columnWeight="1"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#E0E0E0"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="#FFFFFF">
+                <TextView
+                    android:id="@+id/tv_title_py"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Papa Yungay"
+                    android:textStyle="bold"
+                    android:textColor="#0C1324"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_papa_yungay"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                <TextView
+                    android:id="@+id/tv_sub_py"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bolsa x 25kg (Promedio)"
+                    android:textSize="10sp"
+                    android:textColor="#78909C"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_py"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_py"/>
 
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_circle_gray"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_grain"
-                        app:tint="#78909C" />
+                <TextView
+                    android:id="@+id/tv_precio_py"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S/ 3.20"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#0C1324"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_py"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sub_py"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Quinua"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#0C1324"
-                        android:layout_marginTop="12dp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </GridLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" / kg"
+                    android:textSize="10sp"
+                    android:textColor="#78909C"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_precio_py"
+                    app:layout_constraintStart_toEndOf="@id/tv_precio_py"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="↓ 05%"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:textColor="#D32F2F"
+                    android:background="@drawable/bg_tendencia_negativa"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_calcular_presupuesto"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:text="Calcular Presupuesto"
+            android:textColor="#0C1324"
+            android:textStyle="bold"
+            app:backgroundTint="#FFFFFF"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="1dp"
+            app:cornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/card_opcion_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/label_identificacion"
@@ -240,7 +244,7 @@
             android:text="Identificación"
             android:textColor="#0C1324"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/grid_cultivos"
+            app:layout_constraintTop_toBottomOf="@id/btn_calcular_presupuesto"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
@@ -333,6 +337,17 @@
             app:layout_constraintTop_toBottomOf="@id/tv_fecha_cosecha"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <EditText
+            android:id="@+id/et_riego"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_white_rounded_border"
+            android:hint="   💧  Ej. 45"
+            android:inputType="number"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/label_riego" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_ubicacion"
             android:layout_width="wrap_content"
@@ -362,7 +377,7 @@
             android:textStyle="bold"
             app:backgroundTint="#39FF14"
             app:cornerRadius="8dp"
-            app:icon="@drawable/ic_save"
+            app:icon="@android:drawable/ic_menu_save"
             app:iconTint="#0C1324"
             app:iconGravity="textEnd"
             app:layout_constraintTop_toBottomOf="@id/btn_ubicacion"
