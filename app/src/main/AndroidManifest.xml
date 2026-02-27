@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgroPerú">
         <activity
+            android:name=".CalculadoraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MisCultivosActivity"
+            android:exported="false" />
+        <activity
             android:name=".AgregarRecordatorioActivity"
             android:exported="false" />
         <activity

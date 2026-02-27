@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_marginHorizontal="8dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_icono_cultivo"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="#F1FBEE"
+            android:padding="12dp"
+            android:src="@drawable/ic_leaf"
+            app:tint="#00E676"
+            app:shapeAppearanceOverlay="@style/RoundedSquare"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_nombre_lote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Cultivo Norte"
+            android:textColor="#0C1324"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/iv_icono_cultivo"
+            app:layout_constraintTop_toTopOf="@id/iv_icono_cultivo" />
+
+        <TextView
+            android:id="@+id/tv_tipo_cultivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Papa Amarilla"
+            android:textColor="#78909C"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tv_nombre_lote"
+            app:layout_constraintTop_toBottomOf="@id/tv_nombre_lote" />
+
+        <TextView
+            android:id="@+id/tv_estado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_tag_activo"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="ACTIVO"
+            android:textColor="#1B5E20"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_nombre_lote" />
+
+        <TextView
+            android:id="@+id/tv_progreso_porcentaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Progreso: 50%"
+            android:textColor="#78909C"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_icono_cultivo" />
+
+        <TextView
+            android:id="@+id/tv_progreso_dias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Día 45 de 90"
+            android:textColor="#0C1324"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_progreso_porcentaje"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_progreso_porcentaje" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pb_progreso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:progress="50"
+            app:indicatorColor="#00E676"
+            app:trackColor="#E8F5E9"
+            app:trackCornerRadius="4dp"
+            app:trackThickness="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_progreso_porcentaje" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintTop_toBottomOf="@id/pb_progreso">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_tarea"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:text="Tarea"
+                android:textColor="#546E7A"
+                android:textSize="13sp"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_check"
+                app:iconTint="#546E7A"
+                app:strokeColor="#E0E0E0" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_detalles"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:text="Detalles"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                app:backgroundTint="#00E676"
+                app:cornerRadius="10dp"
+                app:icon="@android:drawable/ic_menu_view"
+                app:iconTint="#FFFFFF" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
