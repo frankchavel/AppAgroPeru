@@ -112,9 +112,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/et_correo"
                         android:background="@android:color/transparent"
-                        android:hint="      Ingresa tu celular o correo"
-                        android:inputType="phone|textEmailAddress"
+                        android:hint="Ingresa tu celular o correo"
+                        android:inputType="textEmailAddress"
                         android:paddingTop="16dp"
                         android:paddingBottom="16dp"
                         android:textColor="#4A3A3A"
@@ -149,6 +150,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/et_password"
                         android:background="@android:color/transparent"
                         android:hint="     Ingresa tu contraseña"
                         android:inputType="textPassword"
