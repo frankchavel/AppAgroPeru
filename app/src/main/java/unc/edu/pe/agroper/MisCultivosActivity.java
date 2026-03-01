@@ -8,7 +8,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+
+import unc.edu.pe.agroper.databinding.ActivityMisCultivosBinding;
+
 public class MisCultivosActivity extends AppCompatActivity {
+
+    ActivityMisCultivosBinding binding;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +30,19 @@ public class MisCultivosActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Bundle bundle=getIntent().getExtras();
+        String usu =bundle.getString("v_usu");
+        //obteniendo el tipo de autenticación
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            // Obtener proveedor
+            String provider = "";
+            for (UserInfo profile : user.getProviderData()) {
+                provider = profile.getProviderId();
+            }
+        }
     }
 }
