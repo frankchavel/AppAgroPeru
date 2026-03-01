@@ -1,184 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/main"
-    android:background="#FDFBF7">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/top_section"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="24dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:id="@+id/main"
+        android:background="#FDFBF7">
 
-        <TextView
-            android:id="@+id/tv_minagri_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MINAGRI REPORTE"
-            android:textColor="#39FF14"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_titulo_precios"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precios de Mercado"
-            android:textColor="#0C1324"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_minagri_label" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_titulo_precios"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_minagri_label">
-            <ImageView
-                android:id="@+id/iv_perfil_precios"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_person_outline"
-                android:background="#E0E0E0"/>
-        </androidx.cardview.widget.CardView>
-
-        <EditText
-            android:id="@+id/et_buscar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_search_bar"
-            android:drawableStart="@android:drawable/ic_menu_search"
-            android:drawablePadding="12dp"
-            android:hint="Buscar producto (ej. Papa, Limón)..."
-            android:paddingHorizontal="16dp"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tv_titulo_precios" />
-
-        <TextView
-            android:id="@+id/tv_mercado_selector"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_white_rounded_border"
-            android:drawableStart="@android:drawable/ic_menu_mylocation"
-            android:drawableEnd="@android:drawable/arrow_down_float"
-            android:drawablePadding="8dp"
-            android:drawableTint="#00C853"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="16dp"
-            android:text="Gran Mercado Mayorista de Lima (GMML)"
-            android:textColor="#0C1324"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/et_buscar" />
-
-        <HorizontalScrollView
-            android:id="@+id/scroll_filtros"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:scrollbars="none"
-            app:layout_constraintTop_toBottomOf="@id/tv_mercado_selector">
+            android:padding="24dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_minagri_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="MINAGRI REPORTE"
+                android:textColor="#39FF14"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.button.MaterialButton
+            <TextView
+                android:id="@+id/tv_titulo_precios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precios de Mercado"
+                android:textColor="#0C1324"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_minagri_label" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_titulo_precios"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_minagri_label">
+
+                <ImageView
+                    android:id="@+id/iv_perfil_precios"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_person_outline"
+                    android:background="#E0E0E0" />
+            </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/et_buscar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_search_bar"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:drawablePadding="12dp"
+                android:hint="Buscar producto (ej. Papa, Limón)..."
+                android:paddingHorizontal="16dp"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_titulo_precios" />
+
+            <TextView
+                android:id="@+id/tv_mercado_selector"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_white_rounded_border"
+                android:drawableStart="@android:drawable/ic_menu_mylocation"
+                android:drawableEnd="@android:drawable/arrow_down_float"
+                android:drawablePadding="8dp"
+                android:drawableTint="#00C853"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:text="Gran Mercado Mayorista de Lima (GMML)"
+                android:textColor="#0C1324"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/et_buscar" />
+
+            <HorizontalScrollView
+                android:id="@+id/scroll_filtros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/tv_mercado_selector">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="Todos"
-                    android:textColor="#FFFFFF"
-                    app:backgroundTint="#39FF14"
-                    app:cornerRadius="20dp"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="Tubérculos"
-                    android:textColor="#546E7A"
-                    app:strokeColor="#E0E0E0"
-                    app:cornerRadius="20dp"
-                    android:layout_marginEnd="8dp"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Todos"
+                        android:textColor="#FFFFFF"
+                        app:backgroundTint="#39FF14"
+                        app:cornerRadius="20dp"
+                        android:layout_marginEnd="8dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="Hortalizas"
-                    android:textColor="#546E7A"
-                    app:strokeColor="#E0E0E0"
-                    app:cornerRadius="20dp"
-                    android:layout_marginEnd="8dp"/>
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Tubérculos"
+                        android:textColor="#546E7A"
+                        app:strokeColor="#E0E0E0"
+                        app:cornerRadius="20dp"
+                        android:layout_marginEnd="8dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="Frutas"
-                    android:textColor="#546E7A"
-                    app:strokeColor="#E0E0E0"
-                    app:cornerRadius="20dp"/>
-            </LinearLayout>
-        </HorizontalScrollView>
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Hortalizas"
+                        android:textColor="#546E7A"
+                        app:strokeColor="#E0E0E0"
+                        app:cornerRadius="20dp"
+                        android:layout_marginEnd="8dp" />
 
-        <TextView
-            android:id="@+id/tv_ultima_act"
-            android:layout_width="wrap_content"
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Frutas"
+                        android:textColor="#546E7A"
+                        app:strokeColor="#E0E0E0"
+                        app:cornerRadius="20dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/tv_ultima_act"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Última actualización: Hoy, 05:45 AM"
+                android:textColor="#78909C"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scroll_filtros" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="● EN VIVO"
+                android:textColor="#00C853"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_ultima_act" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_precios"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="100dp"
+            app:layout_constraintTop_toBottomOf="@id/top_section"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_precio_mercado" />
+
+
+        <include
+            android:id="@+id/nav_inferior"
+            layout="@layout/layout_nav_inferior"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Última actualización: Hoy, 05:45 AM"
-            android:textColor="#78909C"
-            android:textSize="11sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scroll_filtros" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="● EN VIVO"
-            android:textColor="#00C853"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_ultima_act" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_precios"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="100dp"
-        app:layout_constraintTop_toBottomOf="@id/top_section"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_precio_mercado" />
-
-
-    <include
-        android:id="@+id/nav_inferior"
-        layout="@layout/layout_nav_inferior"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
