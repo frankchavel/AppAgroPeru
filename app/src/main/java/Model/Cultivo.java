@@ -43,21 +43,41 @@ public class Cultivo {
 
     public int getProductoAgricolaID() { return productoAgricolaID; }
 
+    public void setProductoAgricolaID(int productoAgricolaID) { this.productoAgricolaID = productoAgricolaID; }
+
     public String getNombreCultivo() { return nombreCultivo; }
+
+    public void setNombreCultivo(String nombreCultivo) { this.nombreCultivo = nombreCultivo; }
 
     public String getDescripcion() { return descripcion; }
 
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
     public int getAreaCultivo() { return areaCultivo; }
+
+    public void setAreaCultivo(int areaCultivo) { this.areaCultivo = areaCultivo; }
 
     public String getFechaSiembra() { return fechaSiembra; }
 
+    public void setFechaSiembra(String fechaSiembra) { this.fechaSiembra = fechaSiembra; }
+
     public String getFechaCosechaEstimada() { return fechaCosechaEstimada; }
+
+    public void setFechaCosechaEstimada(String fechaCosechaEstimada) { this.fechaCosechaEstimada = fechaCosechaEstimada; }
 
     public String getFechaCosechaReal() { return fechaCosechaReal; }
 
+    public void setFechaCosechaReal(String fechaCosecha) { this.fechaCosechaReal = fechaCosecha; }
+
     public String getEstadoCultivo() { return estadoCultivo; }
+
+    public void setEstadoCultivo(String estadoCultivo) { this.estadoCultivo = estadoCultivo; }
 
     public int getTiempoRiegoPromedio() { return tiempoRiegoPromedio; }
 
+    public void setTiempoRiegoPromedio(int tiempoRiegoPromedio) { this.tiempoRiegoPromedio = tiempoRiegoPromedio; }
+
     public String getFechaRegistro() { return fechaRegistro; }
+
+    public void setFechaRegistro(String fechaRegistro) { this.fechaRegistro = fechaRegistro; }
 }
