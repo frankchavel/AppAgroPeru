@@ -60,7 +60,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_usuario_nombre">
 
                     <ImageView
-                        android:id="@+id/iv_perfil"
+                        android:id="@+id/iv_mini_perfil"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"

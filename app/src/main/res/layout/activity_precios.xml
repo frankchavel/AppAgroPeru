@@ -52,7 +52,7 @@
                 app:layout_constraintTop_toTopOf="@id/tv_minagri_label">
 
                 <ImageView
-                    android:id="@+id/iv_perfil_precios"
+                    android:id="@+id/iv_mini_perfil"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"

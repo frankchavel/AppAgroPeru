@@ -54,6 +54,7 @@
                 app:layout_constraintTop_toTopOf="@id/ic_logo_planta">
 
                 <ImageView
+                    android:id="@+id/iv_mini_perfil"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
