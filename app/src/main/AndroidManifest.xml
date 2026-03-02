@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgroPerú">
         <activity
+            android:name=".RecuperarPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".CalculadoraActivity"
             android:exported="false" />
         <activity
