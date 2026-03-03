@@ -1,3 +1,8 @@
+import java.util.Properties
+
+val localProperties = Properties()
+localProperties.load(rootProject.file("local.properties").inputStream())
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
@@ -17,6 +22,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        //manifestPlaceholders["AIzaSyDNFhzvilBWPfILw-6g8Ez9kfVGogX_B_8"] = localProperties["AIzaSyDNFhzvilBWPfILw-6g8Ez9kfVGogX_B_8"] ?: ""
+        //buildConfigField ("String", "MAPS_API_KEY", "\"AIzaSyDHVIIqO-NU4dwS2M2a4Rq4xTLo6gL80g8\"")
     }
 
     buildTypes {
@@ -33,8 +41,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
-        dataBinding = true
+        viewBinding = true
+        buildConfig = true
     }
+
 }
 
 dependencies {
@@ -42,7 +52,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -51,4 +60,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("org.jsoup:jsoup:1.17.2")
+
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

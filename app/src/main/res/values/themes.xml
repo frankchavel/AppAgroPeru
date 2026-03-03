@@ -10,4 +10,21 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">12dp</item>
     </style>
+    <style name="LabelField">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#78909C</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="InputField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background">@drawable/bg_white_rounded_border</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:textColorHint">#9E9E9E</item>
+        <item name="android:textColor">#0C1324</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>

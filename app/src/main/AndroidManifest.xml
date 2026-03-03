@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -15,11 +17,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgroPerú">
         <activity
-            android:name=".PerfilActivity"
+            android:name=".Lista_Cultivos_Activity"
             android:exported="false" />
         <activity
-            android:name=".RecuperarPasswordActivity"
+            android:name=".LocalizacionCultivoActivity"
             android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".CalculadoraActivity"
             android:exported="false" />
@@ -36,6 +47,9 @@
             android:name=".PreciosActivity"
             android:exported="false" />
         <activity
+            android:name=".ActivityRecurso"
+            android:exported="false" />
+        <activity
             android:name=".RegistroCultivoActivity"
             android:exported="false" />
         <activity
@@ -44,15 +58,10 @@
         <activity
             android:name=".RegistroUsuarioActivity"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDNFhzvilBWPfILw-6g8Ez9kfVGogX_B_8" />
     </application>
 
 </manifest>

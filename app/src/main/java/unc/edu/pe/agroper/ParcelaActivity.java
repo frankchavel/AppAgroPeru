@@ -1,29 +1,217 @@
 package unc.edu.pe.agroper;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import unc.edu.pe.agroper.databinding.ActivityParcelaBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import Model.ZonaAgricola;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import unc.edu.pe.agroper.Service.ApiService;
+import unc.edu.pe.agroper.Service.Clima.WeatherApiService;
+import unc.edu.pe.agroper.Service.Clima.WeatherRequest;
+import unc.edu.pe.agroper.Service.Clima.WeatherResponse;
+import unc.edu.pe.agroper.Service.Clima.WeatherRetrofitClient;
+import unc.edu.pe.agroper.Service.RetrofitClient;
 
 public class ParcelaActivity extends AppCompatActivity {
+    private TextView tvTemp, tvDesc, tvHumedad, tvLluvia, tvViento;
+    private ProgressBar pbClima;
+    private FusedLocationProviderClient fusedLocationClient;
+    private static final int LOCATION_PERMISSION_CODE = 2001;
 
-    ActivityParcelaBinding binding;
+    private ApiService apiService;
+    private WeatherApiService weatherService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityParcelaBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_parcela);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Botón: Ver Mapa → ZonaAgricolaActivity
+        findViewById(R.id.btn_ver_mapa).setOnClickListener(v -> {
+            Intent intent = new Intent(this, LocalizacionCultivoActivity.class);
+            startActivity(intent);
+        });
+        // Botón: Ver Precio → ZonaAgricolaActivity
+        findViewById(R.id.btn_precios).setOnClickListener(v -> {
+            Intent intent = new Intent(this, PreciosActivity.class);
+            startActivity(intent);
+        });
+        // Botón: Ver Precio → ZonaAgricolaActivity
+        findViewById(R.id.btn_nuevo_cultivo).setOnClickListener(v -> {
+            Intent intent = new Intent(this, MisCultivosActivity.class);
+            startActivity(intent);
+        });
+        tvTemp = findViewById(R.id.tv_temp_actual);
+        tvDesc = findViewById(R.id.tv_desc_clima);
+        tvHumedad = findViewById(R.id.tv_humedad);
+        tvLluvia = findViewById(R.id.tv_lluvia);
+        tvViento = findViewById(R.id.tv_viento);
+        pbClima = findViewById(R.id.pb_clima);
+
+        apiService = RetrofitClient.getClient().create(ApiService.class);
+        weatherService = WeatherRetrofitClient
+                .getClient("AIzaSyDHVIIqO-NU4dwS2M2a4Rq4xTLo6gL80g8")
+                .create(WeatherApiService.class);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        obtenerUbicacionActualYClima();
     }
+    private void obtenerNombreLugar(double lat, double lng) {
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+
+            if (addresses != null && !addresses.isEmpty()) {
+
+                Address address = addresses.get(0);
+
+                String ciudad = address.getLocality();
+                String pais = address.getCountryName();
+
+                TextView tvUbicacion = findViewById(R.id.tv_ubicacion);
+
+                tvUbicacion.setText(ciudad + ", " + pais);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void obtenerUbicacionActualYClima() {
+
+        pbClima.setVisibility(View.VISIBLE);
+
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_CODE
+            );
+            return;
+        }
+
+        fusedLocationClient.getCurrentLocation(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                null
+        ).addOnSuccessListener(location -> {
+
+            if (location != null) {
+
+                double lat = location.getLatitude();
+                double lng = location.getLongitude();
+
+                // 🔹 Obtener nombre real del lugar
+                obtenerNombreLugar(lat, lng);
+
+                // 🔹 Obtener clima real
+                obtenerClima(lat, lng);
+
+            } else {
+                pbClima.setVisibility(View.GONE);
+                Toast.makeText(this,
+                        "No se pudo obtener ubicación actual",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void obtenerClima(double lat, double lng) {
+
+        pbClima.setVisibility(View.VISIBLE);
+
+        weatherService.getWeather(lat, lng)
+                .enqueue(new Callback<WeatherResponse>() {
+
+                    @Override
+                    public void onResponse(Call<WeatherResponse> call,
+                                           Response<WeatherResponse> response) {
+
+                        pbClima.setVisibility(View.GONE);
+
+                        if (response.isSuccessful() && response.body() != null) {
+
+                            WeatherResponse clima = response.body();
+
+                            tvTemp.setText(Math.round(clima.temperature.degrees) + "°");
+                            tvDesc.setText("Clima actual");
+                            tvHumedad.setText(clima.humidity + "%");
+                            tvLluvia.setText(clima.precipitationProbability + "%");
+                            tvViento.setText(
+                                    Math.round(clima.wind.speed.value) + " km/h"
+                            );
+
+                        } else {
+                            Log.e("CLIMA_ERROR", "Error: " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<WeatherResponse> call, Throwable t) {
+                        pbClima.setVisibility(View.GONE);
+                        Log.e("CLIMA_ERROR", t.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == LOCATION_PERMISSION_CODE) {
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                obtenerUbicacionActualYClima();
+
+            } else {
+
+                pbClima.setVisibility(View.GONE);
+                Toast.makeText(this,
+                        "Permiso de ubicación denegado",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
 }
