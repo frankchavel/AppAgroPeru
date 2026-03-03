@@ -24,6 +24,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.List;
@@ -72,9 +74,18 @@ public class ParcelaActivity extends AppCompatActivity {
         });
         // Botón: Ver Precio → ZonaAgricolaActivity
         findViewById(R.id.btn_nuevo_cultivo).setOnClickListener(v -> {
-            Intent intent = new Intent(this, MisCultivosActivity.class);
-            startActivity(intent);
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            if (user != null) {
+                Intent intent = new Intent(this, MisCultivosActivity.class);
+                intent.putExtra("v_usu", user.getEmail());
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+            }
         });
+
         tvTemp = findViewById(R.id.tv_temp_actual);
         tvDesc = findViewById(R.id.tv_desc_clima);
         tvHumedad = findViewById(R.id.tv_humedad);

@@ -2,9 +2,11 @@ package unc.edu.pe.agroper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -12,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -21,82 +24,98 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import unc.edu.pe.agroper.Service.ApiService;
 import unc.edu.pe.agroper.Service.RetrofitClient;
+import unc.edu.pe.agroper.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-    private TextInputEditText etCorreo, etPassword;
-    private MaterialButton btnIngresar, btnRegistrar;
-    private ApiService apiService;
+
+    private ActivityMainBinding binding;
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        etCorreo = findViewById(R.id.et_correo);
-        etPassword = findViewById(R.id.et_password);
-        btnIngresar = findViewById(R.id.btn_ingresar);
-        btnRegistrar= findViewById(R.id.btn_registrar);
 
-        apiService = RetrofitClient
-                .getClient()
-                .create(ApiService.class);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        btnIngresar.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ParcelaActivity.class)));
-        btnRegistrar.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, RegistroUsuarioActivity.class)));// ← así
+        mAuth = FirebaseAuth.getInstance();
+
+        binding.btnRegistrar.setOnClickListener(v -> crearUsuario());
+        binding.btnIngresar.setOnClickListener(v -> accederUsuario());
     }
-    private void loginUsuario() {
 
-        String correo = etCorreo.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
+    private void crearUsuario() {
 
-        if (correo.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        String usu = binding.etCorreo.getText().toString().trim();
+        String pass = binding.etPassword.getText().toString().trim();
 
-        apiService.getUsuarios().enqueue(new Callback<List<Usuario>>() {
-            @Override
-            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+        if (!validarCampos(usu, pass)) return;
 
-                if (response.isSuccessful() && response.body() != null) {
+        mAuth.createUserWithEmailAndPassword(usu, pass)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
 
-                    boolean encontrado = false;
+                        Toast.makeText(this, "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
 
-                    for (Usuario u : response.body()) {
-                        if (u.getCorreo().equals(correo) &&
-                                u.getContrasena().equals(password)) {
+                        Intent intent = new Intent(MainActivity.this, MisCultivosActivity.class);
+                        intent.putExtra("v_usu", usu);
+                        startActivity(intent);
+                        finish();
 
-                            encontrado = true;
-                            break;
-                        }
-                    }
-
-                    if (encontrado) {
-                        Toast.makeText(MainActivity.this, "Login correcto ✅", Toast.LENGTH_SHORT).show();
-                        // evita volver al login con el botón atrás
-                    }else {
-                        Toast.makeText(MainActivity.this,
-                                "Usuario o contraseña incorrectos ❌",
+                    } else {
+                        Toast.makeText(this,
+                                "Error: " + task.getException().getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
+                });
+    }
 
-                } else {
-                    Toast.makeText(MainActivity.this,
-                            "Error en el servidor",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
+    private void accederUsuario() {
 
-            @Override
-            public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                Toast.makeText(MainActivity.this,
-                        "Error de conexión: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+        String usu = binding.etCorreo.getText().toString().trim();
+        String pass = binding.etPassword.getText().toString().trim();
+
+        if (!validarCampos(usu, pass)) return;
+
+        mAuth.signInWithEmailAndPassword(usu, pass)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+
+                        Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(MainActivity.this, ParcelaActivity.class);
+                        intent.putExtra("v_usu", usu);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+                        Toast.makeText(this,
+                                "Error: " + task.getException().getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private boolean validarCampos(String email, String password) {
+
+        if (email.isEmpty()) {
+            binding.etCorreo.setError("Ingrese su correo");
+            binding.etCorreo.requestFocus();
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            binding.etPassword.setError("Ingrese su contraseña");
+            binding.etPassword.requestFocus();
+            return false;
+        }
+
+        if (password.length() < 6) {
+            binding.etPassword.setError("Mínimo 6 caracteres");
+            binding.etPassword.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 }
