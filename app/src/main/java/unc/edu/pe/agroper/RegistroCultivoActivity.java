@@ -1,10 +1,15 @@
 package unc.edu.pe.agroper;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -17,25 +22,33 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import Model.Cultivo;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import unc.edu.pe.agroper.Notificaciones.NotificacionCosechaWorker;
 import unc.edu.pe.agroper.Service.ApiService;
 import unc.edu.pe.agroper.Service.RetrofitClient;
 
@@ -186,6 +199,24 @@ public class RegistroCultivoActivity extends AppCompatActivity {
 
         cultivo.setEstado("Activo");
 
+        String fechaSiembraUI = tvFechaSiembra.getText().toString().trim();
+        String fechaCosechaUI = tvFechaCosecha.getText().toString().trim();
+
+        if (fechaSiembraUI.isEmpty() || fechaCosechaUI.isEmpty()) {
+            snack("Selecciona fecha de siembra y cosecha");
+            return;
+        }
+
+        String fechaSiembraAPI = convertirFechaParaAPI(fechaSiembraUI);
+        String fechaCosechaAPI = convertirFechaParaAPI(fechaCosechaUI);
+
+        if (fechaSiembraAPI == null || fechaCosechaAPI == null) {
+            snack("Formato de fecha inválido");
+            return;
+        }
+
+        cultivo.setFechaSiembra(fechaSiembraAPI);
+        cultivo.setFechaCosechaEstimada(fechaCosechaAPI);
 
         enviarCultivo(cultivo);
     }
@@ -195,31 +226,57 @@ public class RegistroCultivoActivity extends AppCompatActivity {
         btnGuardar.setEnabled(false);
         btnGuardar.setText("Guardando...");
 
-        apiService.crearCultivo(cultivo).enqueue(new retrofit2.Callback<Cultivo>() {
+        apiService.crearCultivo(cultivo).enqueue(new Callback<Cultivo>() {
 
             @Override
             public void onResponse(Call<Cultivo> call, Response<Cultivo> response) {
+
                 btnGuardar.setEnabled(true);
                 btnGuardar.setText("Guardar Cultivo");
 
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
+
+                    Cultivo cultivoGuardado = response.body();
+
+                    // 🔔 Programar notificación 1 día antes
+                    programarNotificacion(
+                            cultivoGuardado.getNombreCultivo(),
+                            cultivoGuardado.getFechaCosechaEstimada()
+                    );
+
                     Toast.makeText(RegistroCultivoActivity.this,
                             "Cultivo guardado correctamente",
                             Toast.LENGTH_LONG).show();
+
                     finish();
+
                 } else {
-                    snack("Error servidor: " + response.code());
+
+                    try {
+                        String errorBody = response.errorBody() != null
+                                ? response.errorBody().string()
+                                : "Error desconocido";
+
+                        Log.e("ERROR_SERVIDOR", errorBody);
+                        snack("Error: " + errorBody);
+
+                    } catch (Exception e) {
+                        snack("Error servidor: " + response.code());
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<Cultivo> call, Throwable t) {
+
                 btnGuardar.setEnabled(true);
                 btnGuardar.setText("Guardar Cultivo");
+
                 snack("Error conexión: " + t.getMessage());
             }
         });
     }
+
 
     private void configurarDropdownEstado() {
         String[] estados = {"Planificado", "En curso", "Cosechado", "Perdido"};
@@ -228,6 +285,58 @@ public class RegistroCultivoActivity extends AppCompatActivity {
         actvEstado.setAdapter(adapter);
         actvEstado.setText(estados[1], false);
     }
+    private String convertirFechaParaAPI(String fechaUI) {
+        try {
+            DateTimeFormatter formatoUI = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter formatoAPI = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            LocalDate fecha = LocalDate.parse(fechaUI, formatoUI);
+            return fecha.format(formatoAPI);
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private void programarNotificacion(String nombreCultivo, String fechaCosechaAPI) {
+
+        try {
+
+            LocalDate fechaCosecha = LocalDate.parse(fechaCosechaAPI);
+            LocalDate fechaNotificacion = fechaCosecha.minusDays(1);
+
+            // 🔥 Hora fija: 9 AM el día anterior
+            LocalDateTime fechaObjetivo = fechaNotificacion.atTime(9, 0);
+
+            LocalDateTime ahora = LocalDateTime.now();
+
+            if (fechaObjetivo.isBefore(ahora)) {
+                Log.d("NOTIF", "La fecha ya pasó, no se programa");
+                return;
+            }
+
+            long delay = ChronoUnit.MILLIS.between(ahora, fechaObjetivo);
+
+            Data data = new Data.Builder()
+                    .putString("nombre", nombreCultivo)
+                    .build();
+
+            OneTimeWorkRequest request =
+                    new OneTimeWorkRequest.Builder(NotificacionCosechaWorker.class)
+                            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                            .setInputData(data)
+                            .build();
+
+            WorkManager.getInstance(this).enqueue(request);
+
+            Log.d("NOTIF", "Notificación programada correctamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void snack(String msg) {
         Snackbar.make(findViewById(android.R.id.content),

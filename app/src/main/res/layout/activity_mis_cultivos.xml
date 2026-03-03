@@ -258,23 +258,6 @@
 
                 </LinearLayout>
 
-                <!-- ✅ BOTÓN NUEVO CULTIVO -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_nuevo_cultivo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="+ Nuevo"
-                    android:textColor="#FFFFFF"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="#2E7D32"
-                    app:cornerRadius="20dp"
-                    app:icon="@drawable/ic_eco"
-                    app:iconTint="#FFFFFF"
-                    app:iconSize="16dp"
-                    app:iconGravity="textStart"
-                    app:elevation="2dp" />
-
             </LinearLayout>
 
             <!-- Lista de cultivos -->

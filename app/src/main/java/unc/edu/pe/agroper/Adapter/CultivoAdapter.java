@@ -1,6 +1,8 @@
 package unc.edu.pe.agroper.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +25,6 @@ import Model.Cultivo;
 import unc.edu.pe.agroper.R;
 
 public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHolder> {
-
     private final Context context;
     private List<Cultivo> lista;
 
@@ -30,7 +33,6 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
         this.lista = lista != null ? lista : new ArrayList<>();
     }
 
-    // Permite actualizar lista dinámicamente
     public void actualizarLista(List<Cultivo> nuevaLista) {
         this.lista = nuevaLista != null ? nuevaLista : new ArrayList<>();
         notifyDataSetChanged();
@@ -41,7 +43,7 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_lista_cultivos, parent, false);
+                .inflate(R.layout.item_mi_cultivo, parent, false);
 
         return new ViewHolder(view);
     }
@@ -51,7 +53,6 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
 
         Cultivo cultivo = lista.get(position);
 
-        // 🔒 Evitar NullPointer
         holder.tvNombre.setText(
                 cultivo.getNombreCultivo() != null ?
                         cultivo.getNombreCultivo() : "Sin nombre");
@@ -70,36 +71,62 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
 
         holder.tvZona.setText("Zona ID: " + cultivo.getZonaID());
 
-        // ───────── PROGRESO REAL ─────────
-        int diasActuales = 0;
-        int totalDias = 90;
+        // ───────── PROGRESO Y COSECHA REAL ─────────
 
         try {
-            if (cultivo.getFechaRegistro() != null) {
 
-                OffsetDateTime fechaRegistro =
-                        OffsetDateTime.parse(cultivo.getFechaRegistro());
+            String fechaSiembraStr = cultivo.getFechaSiembra();
+            String fechaEstimadaStr = cultivo.getFechaCosechaEstimada();
 
-                OffsetDateTime hoy = OffsetDateTime.now();
+            if (fechaSiembraStr != null && fechaEstimadaStr != null) {
 
-                diasActuales = (int) ChronoUnit.DAYS.between(
-                        fechaRegistro.toLocalDate(),
-                        hoy.toLocalDate());
+                // Tomamos solo la parte de la fecha (yyyy-MM-dd)
+                String soloFechaSiembra = fechaSiembraStr.substring(0, 10);
+                String soloFechaEstimada = fechaEstimadaStr.substring(0, 10);
 
-                if (diasActuales < 0) diasActuales = 0;
-                if (diasActuales > totalDias) diasActuales = totalDias;
+                LocalDate fechaInicio = LocalDate.parse(soloFechaSiembra);
+                LocalDate fechaEstimada = LocalDate.parse(soloFechaEstimada);
+
+                LocalDate hoy = LocalDate.now();
+
+                int totalDias = (int) ChronoUnit.DAYS.between(fechaInicio, fechaEstimada);
+                int diasTranscurridos = (int) ChronoUnit.DAYS.between(fechaInicio, hoy);
+                int diasRestantes = (int) ChronoUnit.DAYS.between(hoy, fechaEstimada);
+
+                if (diasTranscurridos < 0) diasTranscurridos = 0;
+                if (diasTranscurridos > totalDias) diasTranscurridos = totalDias;
+
+                holder.tvProgresoDias.setText(
+                        "Día " + diasTranscurridos + " de " + totalDias);
+
+                int progreso = (totalDias == 0) ? 0 :
+                        (diasTranscurridos * 100) / totalDias;
+
+                holder.progressBar.setProgress(progreso);
+
+                if (diasRestantes > 0) {
+                    holder.tvDiasCosecha.setText(diasRestantes + " días");
+                } else if (diasRestantes == 0) {
+                    holder.tvDiasCosecha.setText("Hoy 🌾");
+                } else {
+                    holder.tvDiasCosecha.setText("Cosechado");
+                }
+
+            } else {
+
+                holder.tvDiasCosecha.setText("Sin fecha");
+                holder.tvProgresoDias.setText("Sin progreso");
+                holder.progressBar.setProgress(0);
             }
+
         } catch (Exception e) {
-            diasActuales = 0;
+
+            holder.tvDiasCosecha.setText("Error fecha");
+            holder.tvProgresoDias.setText("Error");
+            holder.progressBar.setProgress(0);
+
+            Log.e("FECHA_ERROR", e.getMessage());
         }
-
-        holder.tvProgresoDias.setText(
-                "Día " + diasActuales + " de " + totalDias);
-
-        int progreso = (totalDias == 0) ? 0 :
-                (diasActuales * 100) / totalDias;
-
-        holder.progressBar.setProgress(progreso);
     }
 
     @Override
@@ -110,8 +137,9 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
     // ───────── VIEW HOLDER ─────────
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvNombre, tvTipo, tvEstado, tvArea,
-                tvZona, tvProgresoDias;
+        TextView tvNombre, tvTipo, tvEstado,
+                tvArea, tvZona,
+                tvProgresoDias, tvDiasCosecha;
 
         LinearProgressIndicator progressBar;
 
@@ -124,6 +152,7 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
             tvArea = itemView.findViewById(R.id.tv_area);
             tvZona = itemView.findViewById(R.id.tv_zona);
             tvProgresoDias = itemView.findViewById(R.id.tv_progreso_dias);
+            tvDiasCosecha = itemView.findViewById(R.id.tv_dias_cosecha);
             progressBar = itemView.findViewById(R.id.pb_progreso);
         }
     }
