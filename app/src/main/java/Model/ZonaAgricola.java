@@ -8,7 +8,7 @@ public class ZonaAgricola {
     private double longitud;
     private String fechaRegistro;
 
-    // 🔥 Constructor vacío obligatorio para Retrofit
+    // Constructor vacío obligatorio para Retrofit
     public ZonaAgricola() {
     }
 

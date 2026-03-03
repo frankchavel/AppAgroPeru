@@ -17,9 +17,9 @@
         android:title="Mapa"/>
 
     <item
-        android:id="@+id/nav_alertas"
-        android:icon="@android:drawable/ic_dialog_alert"
-        android:title="Alertas"/>
+        android:id="@+id/nav_calendario"
+        android:icon="@android:drawable/ic_menu_month"
+        android:title="Calendario"/>
 
     <item
         android:id="@+id/nav_mercado"

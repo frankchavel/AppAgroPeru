@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="Agregar cultivo"
             android:src="@drawable/ic_add"
-            app:backgroundTint="#39FF14"
+            app:backgroundTint="@color/verde"
             app:tint="#000000"
             app:layout_anchor="@id/bottom_app_bar"
             app:maxImageSize="32dp" />
