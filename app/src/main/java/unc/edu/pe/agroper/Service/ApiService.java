@@ -26,6 +26,8 @@ public interface ApiService {
     // GET ALL USUARIOS
     @GET("api/usuario")
     Call<List<Usuario>> getUsuarios();
+    @POST("api/usuario")
+    Call<Usuario> crearUsuario(@Body Usuario usuario);
 
     // CREATE USUARIO
     @POST("api/usuario")

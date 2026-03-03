@@ -40,34 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        binding.btnRegistrar.setOnClickListener(v -> crearUsuario());
         binding.btnIngresar.setOnClickListener(v -> accederUsuario());
-    }
-
-    private void crearUsuario() {
-
-        String usu = binding.etCorreo.getText().toString().trim();
-        String pass = binding.etPassword.getText().toString().trim();
-
-        if (!validarCampos(usu, pass)) return;
-
-        mAuth.createUserWithEmailAndPassword(usu, pass)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-
-                        Toast.makeText(this, "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(MainActivity.this, MisCultivosActivity.class);
-                        intent.putExtra("v_usu", usu);
-                        startActivity(intent);
-                        finish();
-
-                    } else {
-                        Toast.makeText(this,
-                                "Error: " + task.getException().getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+        binding.btnRegistrar.setOnClickListener(v ->{
+            Intent intent = new Intent(this, RegistroUsuarioActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void accederUsuario() {
