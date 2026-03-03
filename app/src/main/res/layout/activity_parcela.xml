@@ -1,668 +1,902 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F5F0">
 
-    <data>
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+    <!-- ============================================================
+         SCROLL PRINCIPAL
+    ============================================================ -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_dashboard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F5F5F5">
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:paddingBottom="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <!-- ============================================================
+                 HEADER VERDE — saludo + clima
+            ============================================================ -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:background="@drawable/bg_header_green_rounded"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="48dp"
+                android:paddingBottom="28dp">
 
-                <!-- BIENVENIDO DE NUEVO -->
+                <!-- Saludo -->
                 <TextView
-                    android:id="@+id/tv_bienvenida"
+                    android:id="@+id/tv_saludo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BIENVENIDO DE NUEVO"
-                    android:textColor="#78909C"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.05"
+                    android:text="Buenos días 👋"
+                    android:textColor="#C8E6C9"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <!-- Hola, Manuel + Avatar -->
                 <TextView
-                    android:id="@+id/tv_usuario_nombre"
+                    android:id="@+id/tv_nombre_usuario"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Hola, Manuel"
-                    android:textColor="#1B5E20"
+                    android:text="Agricultor"
+                    android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/cv_perfil"
+                    android:layout_marginEnd="12dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_bienvenida"
-                    tools:text="Hola, Manuel" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_saludo"
+                    app:layout_constraintEnd_toStartOf="@id/cv_perfil"
+                    tools:text="Agricultor"/>
 
                 <!-- Avatar perfil -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_perfil"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    app:cardCornerRadius="22dp"
                     app:cardBackgroundColor="#2E7D32"
-                    app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_usuario_nombre"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_usuario_nombre">
+                    app:layout_constraintTop_toTopOf="@id/tv_saludo"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_nombre_usuario">
 
-                    <ImageView
-                        android:id="@+id/iv_mini_perfil"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#E0E0E0"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_person_outline" />
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_eco"
+                            app:tint="#FFFFFF"/>
+                    </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Ubicación -->
-                <TextView
-                    android:id="@+id/tv_ubicacion_detalle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:drawableStart="@android:drawable/ic_menu_mylocation"
-                    android:drawablePadding="6dp"
-                    android:drawableTint="#78909C"
-                    android:paddingVertical="4dp"
-                    android:text="Valle del Mantaro, Junín"
-                    android:textColor="#546E7A"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_usuario_nombre"
-                    tools:text="Valle del Mantaro, Junín" />
-
-                <!-- ALERTA DE HELADA -->
+                <!-- Card blanco semi-transparente: ubicación + clima -->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_alerta_helada"
+                    android:id="@+id/card_clima_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:cardBackgroundColor="#D32F2F"
+                    app:cardBackgroundColor="#33FFFFFF"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ubicacion_detalle">
+                    app:cardElevation="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nombre_usuario"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:padding="16dp">
 
+                        <!-- Ubicación -->
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:id="@+id/ll_ubicacion"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:orientation="horizontal"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/tv_fecha_clima">
 
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:background="#4DFFFFFF"
-                                android:padding="4dp"
-                                android:src="@android:drawable/ic_dialog_alert"
-                                app:tint="#FFFFFF" />
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@android:drawable/ic_menu_mylocation"
+                                android:layout_marginEnd="4dp"
+                                app:tint="#C8E6C9"/>
 
                             <TextView
-                                android:id="@+id/tv_alerta_helada"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="12dp"
-                                android:text="¡ALERTA DE HELADA!"
-                                android:textColor="#FFFFFF"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tv_alerta_desc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Se prevé descenso de temperatura a -2°C esta madrugada. Proteja sus cultivos de papa."
-                            android:textColor="#FFEBEE"
-                            android:textSize="13sp" />
-
-                        <Button
-                            android:id="@+id/btn_ver_mapa"
-                            android:layout_width="wrap_content"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="12dp"
-                            android:backgroundTint="#B71C1C"
-                            android:text="Ver Mapa"
-                            android:textAllCaps="false"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            app:cornerRadius="18dp"
-                            app:icon="@android:drawable/ic_menu_mapmode"
-                            app:iconGravity="textStart"
-                            app:iconTint="#FFFFFF" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- CLIMA ACTUAL (con título dinámico) -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_clima"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp"
-                    app:layout_constraintTop_toBottomOf="@id/card_alerta_helada">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <!-- Título dinámico: CIUDAD, PAÍS -->
-                        <TextView
-                            android:id="@+id/tv_clima_actual"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Clima Actual"
-                            android:textColor="@color/verdeOscuro"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.05"
-                            tools:text="Clima Actual" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_temp_actual"
+                                android:id="@+id/tv_ubicacion"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="22°"
-                                android:textColor="@color/verdeOscuro"
-                                android:textSize="48sp"
-                                android:textStyle="bold"
-                                tools:text="22°" />
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="12dp"
-                                android:orientation="vertical">
-
-
-                                <TextView
-                                    android:id="@+id/tv_desc_clima"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:text="Parcialmente nublado"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp"
-                                    tools:text="Parcialmente nublado" />
-                            </LinearLayout>
-
-                            <ProgressBar
-                                android:id="@+id/pb_clima"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:indeterminateTint="#2E7D32"
-                                android:visibility="gone" />
+                                android:text="Cusco, Perú"
+                                android:textColor="#C8E6C9"
+                                android:textSize="13sp"
+                                tools:text="Cusco, Perú"/>
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <!-- "Hoy" -->
+                        <TextView
+                            android:id="@+id/tv_fecha_clima"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:weightSum="3">
+                            android:text="Hoy"
+                            android:textColor="#C8E6C9"
+                            android:textSize="13sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
-                            <!-- HUMEDAD (de la API) -->
+                        <!-- Temperatura grande -->
+                        <TextView
+                            android:id="@+id/tv_temp_actual"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="22°"
+                            android:textColor="#FFFFFF"
+                            android:textSize="56sp"
+                            android:textStyle="bold"
+                            android:lineSpacingExtra="-4dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ll_ubicacion"
+                            tools:text=" "/>
+
+                        <!-- Descripción clima -->
+                        <TextView
+                            android:id="@+id/tv_desc_clima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Parcialmente nublado"
+                            android:textColor="#C8E6C9"
+                            android:textSize="13sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_temp_actual"
+                            tools:text="Parcialmente nublado"/>
+
+                        <!-- Stats: Humedad / Lluvia / Viento -->
+                        <LinearLayout
+                            android:id="@+id/ll_stats_clima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="end"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_fecha_clima"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_desc_clima">
+
+                            <!-- Humedad -->
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="6dp">
 
                                 <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
                                     android:src="@drawable/ic_water_drop"
-                                    app:tint="#2196F3" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="HUMEDAD"
-                                    android:textColor="#78909C"
-                                    android:textSize="10sp" />
+                                    app:tint="#C8E6C9"
+                                    android:layout_marginEnd="5dp"/>
 
                                 <TextView
                                     android:id="@+id/tv_humedad"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="64%"
-                                    android:textColor="#1B5E20"
-                                    android:textSize="14sp"
+                                    android:text=""
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="13sp"
                                     android:textStyle="bold"
-                                    tools:text="64%" />
+                                    tools:text=""/>
                             </LinearLayout>
 
-                            <!-- LLUVIA (de la API) -->
+                            <!-- Probabilidad lluvia -->
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="6dp">
 
                                 <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
                                     android:src="@drawable/ic_rainy"
-                                    app:tint="#FF9800" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="LLUVIA"
-                                    android:textColor="#78909C"
-                                    android:textSize="10sp" />
+                                    app:tint="#C8E6C9"
+                                    android:layout_marginEnd="5dp"/>
 
                                 <TextView
                                     android:id="@+id/tv_lluvia"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="20%"
-                                    android:textColor="#1B5E20"
-                                    android:textSize="14sp"
+                                    android:text=""
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="13sp"
                                     android:textStyle="bold"
-                                    tools:text="20%" />
+                                    tools:text=""/>
                             </LinearLayout>
 
-                            <!-- VIENTO (de la API) -->
+                            <!-- Viento -->
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
 
                                 <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
                                     android:src="@drawable/ic_air"
-                                    app:tint="#9C27B0" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="VIENTO"
-                                    android:textColor="#78909C"
-                                    android:textSize="10sp" />
+                                    app:tint="#C8E6C9"
+                                    android:layout_marginEnd="5dp"/>
 
                                 <TextView
                                     android:id="@+id/tv_viento"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="12 km/h"
-                                    android:textColor="#1B5E20"
-                                    android:textSize="14sp"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="13sp"
                                     android:textStyle="bold"
-                                    tools:text="12 km/h" />
+                                    tools:text="12 km/h"/>
                             </LinearLayout>
                         </LinearLayout>
 
-                        <!-- Fuente -->
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:gravity="end"
-                            android:text="Fuente: Google Weather"
-                            android:textColor="#B0BEC5"
-                            android:textSize="10sp" />
-                    </LinearLayout>
+                        <!-- Loading clima -->
+                        <ProgressBar
+                            android:id="@+id/pb_clima"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:visibility="gone"
+                            android:indeterminateTint="#C8E6C9"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- MI CULTIVO PRINCIPAL -->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ============================================================
+                 CUERPO: padding lateral
+            ============================================================ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp">
+
+                <!-- ============================================================
+                     ALERTAS CLIMÁTICAS
+                ============================================================ -->
+
+                <!-- Alerta 1: Helada — amarillo/naranja -->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_cultivo_maiz"
+                    android:id="@+id/card_alerta_helada"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp"
-                    app:layout_constraintTop_toBottomOf="@id/card_clima">
+                    android:layout_marginBottom="8dp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="#FFFDE7"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#FFE082"
+                    app:strokeWidth="1dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="13dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@android:drawable/ic_dialog_alert"
+                            android:layout_marginEnd="10dp"
+                            app:tint="#F57F17"/>
+
+                        <TextView
+                            android:id="@+id/tv_alerta_helada"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Riesgo de helada esta noche"
+                            android:textColor="#E65100"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:text="Riesgo de helada esta noche"/>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="#F57F17"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Alerta 2: Lluvias — azul -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_alerta_lluvia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="#E3F2FD"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#90CAF9"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="13dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_rainy"
+                            android:layout_marginEnd="10dp"
+                            app:tint="#1565C0"/>
+
+                        <TextView
+                            android:id="@+id/tv_alerta_lluvia"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Lluvias intensas mañana"
+                            android:textColor="#1565C0"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:text="Lluvias intensas mañana"/>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="#1565C0"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ============================================================
+                     ACCIONES RÁPIDAS
+                ============================================================ -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Acciones Rápidas"
+                    android:textColor="#1B2A1E"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="14dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="24dp">
+
+                    <!-- Nuevo Cultivo -->
+                    <LinearLayout
+                        android:id="@+id/btn_nuevo_cultivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginEnd="6dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardBackgroundColor="#2E7D32"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:src="@android:drawable/ic_input_add"
+                                    app:tint="#FFFFFF"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="MI CULTIVO PRINCIPAL"
-                            android:textColor="#78909C"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                app:cardBackgroundColor="#E8F5E9"
-                                app:cardCornerRadius="12dp"
-                                app:cardElevation="0dp">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:padding="10dp"
-                                    android:src="@drawable/ic_leaf"
-                                    app:tint="@color/verdeClaro" />
-                            </androidx.cardview.widget.CardView>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/tv_nombre_lote"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Papa Yungay"
-                                    android:textColor="#1B5E20"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    tools:text="Papa Yungay" />
-
-                                <TextView
-                                    android:id="@+id/tv_tipo_cultivo"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:text="Sector: El Olivo - Parcela 04"
-                                    android:textColor="#78909C"
-                                    android:textSize="12sp"
-                                    tools:text="Sector: El Olivo - Parcela 04" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Estado de crecimiento"
-                                android:textColor="#546E7A"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/tv_progreso_dias"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Día 45 de 120"
-                                android:textColor="#2E7D32"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                tools:text="Día 45 de 120" />
-                        </LinearLayout>
-
-                        <ProgressBar
-                            android:id="@+id/pb_progreso"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="6dp"
-                            android:layout_marginTop="8dp"
-                            android:progress="37"
-                            android:progressDrawable="@drawable/custom_progress_green" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_estado"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="● SALUDABLE"
-                                android:textColor="#2E7D32"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tv_progreso_porcentaje"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="🕒 PRÓXIMO RIEGO: MAÑANA"
-                                android:textColor="#F57F17"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
+                            android:text="Nuevo Cultivo"
+                            android:textColor="#1B2A1E"
+                            android:textSize="11sp"
+                            android:gravity="center"
+                            android:layout_marginTop="8dp"/>
                     </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
 
-                <!-- PRECIO MERCADO y TAREAS HOY -->
-                <LinearLayout
-                    android:id="@+id/layout_precios_tareas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    app:layout_constraintTop_toBottomOf="@id/card_cultivo_maiz">
-
-                    <!-- PRECIO MERCADO -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/btn_precios"
+                    <!-- Ver Mapa -->
+                    <LinearLayout
+                        android:id="@+id/btn_ver_mapa"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="#FFFFFF"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp">
+                        android:layout_marginHorizontal="6dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardBackgroundColor="#1976D2"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:src="@android:drawable/ic_menu_mapmode"
+                                    app:tint="#FFFFFF"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="16dp">
+                            android:text="Ver Mapa"
+                            android:textColor="#1B2A1E"
+                            android:textSize="11sp"
+                            android:gravity="center"
+                            android:layout_marginTop="8dp"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="PRECIO MERCADO (KG)"
-                                android:textColor="#78909C"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tv_precio"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="S/ 2.45"
-                                android:textColor="#1B5E20"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                tools:text="S/ 2.45" />
-
-                            <TextView
-                                android:id="@+id/tv_variacion_precio"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="+ S/ 0.15 hoy"
-                                android:textColor="#2E7D32"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                tools:text="+ S/ 0.15 hoy" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- TAREAS HOY -->
-                    <com.google.android.material.card.MaterialCardView
+                    <!-- Recordatorios -->
+                    <LinearLayout
                         android:id="@+id/btn_recordatorios"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="#FFFFFF"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp">
+                        android:layout_marginHorizontal="6dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardBackgroundColor="#F9A825"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:src="@android:drawable/ic_popup_reminder"
+                                    app:tint="#FFFFFF"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="16dp">
+                            android:text="Recordatorios"
+                            android:textColor="#1B2A1E"
+                            android:textSize="11sp"
+                            android:gravity="center"
+                            android:layout_marginTop="8dp"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="TAREAS HOY"
-                                android:textColor="#78909C"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
+                    <!-- Precios -->
+                    <LinearLayout
+                        android:id="@+id/btn_precios"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginStart="6dp">
 
-                            <TextView
-                                android:id="@+id/tv_tareas_hoy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="3"
-                                android:textColor="#1B5E20"
-                                android:textSize="24sp"
-                                android:textStyle="bold"
-                                tools:text="3" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardBackgroundColor="#E65100"
+                            app:cardElevation="2dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pendientes"
-                                android:textColor="#1B5E20"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
 
-                            <TextView
-                                android:id="@+id/tv_desc_tareas"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Fertilización y Poda"
-                                android:textColor="#78909C"
-                                android:textSize="11sp"
-                                tools:text="Fertilización y Poda" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                                <ImageView
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:src="@drawable/ic_trending_up"
+                                    app:tint="#FFFFFF"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Precios"
+                            android:textColor="#1B2A1E"
+                            android:textSize="11sp"
+                            android:gravity="center"
+                            android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <!-- Espacio adicional (AHORA SÍ FUNCIONA) -->
-                <Space
+                <!-- ============================================================
+                     MIS CULTIVOS
+                ============================================================ -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layout_precios_tareas" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mis Cultivos"
+                        android:textColor="#1B2A1E"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
-        <!-- FAB para Nuevo Cultivo -->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_nuevo_cultivo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="20dp"
-            android:text="Nuevo Cultivo"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/verde"
-            app:icon="@android:drawable/ic_input_add"
-            app:iconTint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@id/bottom_nav"
-            app:layout_constraintEnd_toEndOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_ver_todos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="Ver todos"
+                        android:textColor="#2E7D32"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:ignore="TouchTargetSizeCheck"/>
+                </LinearLayout>
 
-        <!-- ============================================================
+                <!-- Item cultivo 1: Maíz -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_cultivo_maiz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="14dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardBackgroundColor="#E8F5E9"
+                            app:cardElevation="0dp"
+                            android:layout_marginEnd="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:src="@drawable/ic_eco"
+                                    app:tint="#2E7D32"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Maíz"
+                                android:textColor="#1B2A1E"
+                                android:textSize="15sp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2.5 ha · Crecimiento"
+                                android:textColor="#78909C"
+                                android:textSize="12sp"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="end">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="45d"
+                                android:textColor="#2E7D32"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:gravity="end"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="para cosecha"
+                                android:textColor="#78909C"
+                                android:textSize="11sp"
+                                android:gravity="end"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Item cultivo 2: Papa -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_cultivo_papa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="14dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardBackgroundColor="#E8F5E9"
+                            app:cardElevation="0dp"
+                            android:layout_marginEnd="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:src="@drawable/ic_eco"
+                                    app:tint="#2E7D32"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Papa"
+                                android:textColor="#1B2A1E"
+                                android:textSize="15sp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1.8 ha · Siembra"
+                                android:textColor="#78909C"
+                                android:textSize="12sp"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="end">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="120d"
+                                android:textColor="#2E7D32"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:gravity="end"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="para cosecha"
+                                android:textColor="#78909C"
+                                android:textSize="11sp"
+                                android:gravity="end"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Item cultivo 3: Quinua -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_cultivo_quinua"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="14dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardBackgroundColor="#E8F5E9"
+                            app:cardElevation="0dp"
+                            android:layout_marginEnd="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:src="@drawable/ic_eco"
+                                    app:tint="#2E7D32"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Quinua"
+                                android:textColor="#1B2A1E"
+                                android:textSize="15sp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3.0 ha · Floración"
+                                android:textColor="#78909C"
+                                android:textSize="12sp"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="end">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30d"
+                                android:textColor="#2E7D32"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:gravity="end"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="para cosecha"
+                                android:textColor="#78909C"
+                                android:textSize="11sp"
+                                android:gravity="end"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- RecyclerView para cargar dinámicamente desde BD -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cultivos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_cultivo_dashboard"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ============================================================
          BOTTOM NAVIGATION BAR
     ============================================================ -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_nav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            app:elevation="8dp"
-            app:itemIconTint="@color/bottom_nav_color_selector"
-            app:itemTextColor="@color/bottom_nav_color_selector"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/menu_bottom_nav"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:elevation="8dp"
+        app:itemIconTint="@color/bottom_nav_color_selector"
+        app:itemTextColor="@color/bottom_nav_color_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
