@@ -31,9 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Papa Amarilla"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#0C1324"/>
+                android:textColor="@color/verdeOscuro"/>
 
             <TextView
                 android:id="@+id/tv_estado"
@@ -66,7 +66,8 @@
             android:progress="50"
             app:trackThickness="8dp"
             app:trackCornerRadius="4dp"
-            app:indicatorColor="#2E7D32"/>
+            app:indicatorColor="@color/verdeClaro"
+            app:trackColor="#E8F5E9"/>
 
         <TextView
             android:id="@+id/tv_progreso_dias"
@@ -86,26 +87,31 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_detalles"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:text="Ver detalles"
                 android:textSize="12sp"
                 app:cornerRadius="12dp"
-                app:backgroundTint="#2E7D32"
-                android:textColor="@android:color/white"
-                android:layout_marginEnd="8dp"/>
+                app:backgroundTint="@color/white"
+                android:textColor="#546E7A"
+                app:icon="@android:drawable/ic_menu_view"
+                app:iconTint="#546E7A"
+                android:layout_marginEnd="8dp"
+                app:strokeColor="#E0E0E0" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_asignar_insumo"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:text="Asignar Insumo"
                 android:textSize="12sp"
                 app:cornerRadius="12dp"
-                app:backgroundTint="#39FF14"
-                android:textColor="#0C1324"/>
+                app:backgroundTint="@color/verdeClaro"
+                android:textColor="#FFFFFF"/>
 
         </LinearLayout>
 

@@ -4,8 +4,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blanco">#FFFFFF</color>
     <color name="verdeClaro">#00E676</color>
-    <color name="verde">#39FF14</color>
+    <color name="verde">#DD5CFA3E</color>
+    <color name="verdeFosforecente">#39FF14</color>
     <color name="verdeOscuro">#1B5E20</color>
+    <color name="Red">#B71C1C</color>
+    <color name="Celeste">#7CD7FF</color>
+    <color name="Gris">#C2CAD3</color>
+    <color name="NegroTransparente">#881C6621</color>
+    <color name="Azul">#54A3FF</color>
+    <color name="yellow">#F9CF25</color>
+
 
 
 </resources>
