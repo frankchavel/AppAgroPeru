@@ -77,6 +77,11 @@ public class ParcelaActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        findViewById(R.id.btn_recordatorios).setOnClickListener(v -> {
+            Intent intent = new Intent(this, AgregarRecordatorioActivity.class);
+            startActivity(intent);
+        });
         // Botón: Ver Mapa → ZonaAgricolaActivity
         findViewById(R.id.btn_ver_mapa).setOnClickListener(v -> {
             Intent intent = new Intent(this, VisualizarZonasActivity.class);
