@@ -96,6 +96,7 @@ public class VisualizarZonasActivity extends AppCompatActivity implements OnMapR
                                 .position(latLng)
                                 .title(zona.getNombreZona()) // ← Nombre visible
                                 .snippet(zona.getDescripcion())
+
                                 .icon(BitmapDescriptorFactory
                                         .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
