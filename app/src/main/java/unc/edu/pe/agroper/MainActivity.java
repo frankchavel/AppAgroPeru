@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         String usu = binding.etCorreo.getText().toString().trim();
         String pass = binding.etPassword.getText().toString().trim();
 
-        // Usamos el método de validación limpio de tu compañero
         if (!validarCampos(usu, pass)) return;
 
         // Iniciar Sesión en Firebase
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    // Método extraído de tu compañero (con una mejora para el formato de correo)
     private boolean validarCampos(String email, String password) {
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.etCorreo.setError("Ingrese un correo válido");
@@ -88,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void irAPantallaPrincipal() {
-        Intent intent = new Intent(MainActivity.this, CalendarioActivity.class);
+        Intent intent = new Intent(MainActivity.this, ParcelaActivity.class);
         startActivity(intent);
-        finish();
     }
 }

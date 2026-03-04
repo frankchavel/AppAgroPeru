@@ -186,7 +186,15 @@ public class AgregarRecordatorioActivity extends AppCompatActivity {
     }
 
     private void actualizarTextoFechaHora() {
-        binding.tvFechaProgramada.setText(dateFormat.format(calendario.getTime()));
+        // Formato solo para fecha (dd/MM/yyyy)
+        SimpleDateFormat fechaFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        // Formato solo para hora (HH:mm)
+        SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        // Mostrar fecha en tv_fecha_programada
+        binding.tvFechaProgramada.setText(fechaFormat.format(calendario.getTime()));
+        // Mostrar hora en tv_hora_programada
+        binding.tvHoraProgramada.setText(horaFormat.format(calendario.getTime()));
     }
 
     private void guardarTarea() {
@@ -235,9 +243,12 @@ public class AgregarRecordatorioActivity extends AppCompatActivity {
         long ahora = System.currentTimeMillis();
         long diferencia = tiempoProgramado - ahora;
 
+        SimpleDateFormat fechaFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
         Log.d("ALARMA", "=== PROGRAMANDO NOTIFICACIÓN ===");
-        Log.d("ALARMA", "Hora actual: " + dateFormat.format(ahora));
-        Log.d("ALARMA", "Hora programada: " + dateFormat.format(tiempoProgramado));
+        Log.d("ALARMA", "Fecha: " + fechaFormat.format(calendario.getTime()));
+        Log.d("ALARMA", "Hora: " + horaFormat.format(calendario.getTime()));
         Log.d("ALARMA", "Diferencia (minutos): " + (diferencia / 1000 / 60));
 
         // Si la diferencia es menor a 1 minuto, enviar inmediatamente
@@ -275,7 +286,6 @@ public class AgregarRecordatorioActivity extends AppCompatActivity {
 
         if (alarmManager != null) {
             try {
-                // ESTRATEGIA 1: Usar setAlarmClock (máxima prioridad)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(
                             tiempoProgramado,
@@ -283,10 +293,12 @@ public class AgregarRecordatorioActivity extends AppCompatActivity {
                     );
                     alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
                     Log.d("ALARMA", "Alarma programada con setAlarmClock");
-                    Toast.makeText(this, "✅ Recordatorio programado para " +
-                            dateFormat.format(tiempoProgramado), Toast.LENGTH_LONG).show();
+
+                    String mensajeToast = "✅ Recordatorio programado para " +
+                            fechaFormat.format(calendario.getTime()) + " a las " +
+                            horaFormat.format(calendario.getTime());
+                    Toast.makeText(this, mensajeToast, Toast.LENGTH_LONG).show();
                 }
-                // ESTRATEGIA 2: Para versiones anteriores
                 else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, tiempoProgramado, pendingIntent);
                     Toast.makeText(this, "✅ Recordatorio programado", Toast.LENGTH_SHORT).show();
@@ -295,12 +307,11 @@ public class AgregarRecordatorioActivity extends AppCompatActivity {
                     Toast.makeText(this, "✅ Recordatorio programado", Toast.LENGTH_SHORT).show();
                 }
 
-                // ESTRATEGIA 3: Alarma backup 1 minuto después
+                // Alarma backup 1 minuto después
                 programarNotificacionBackup(r, tiempoProgramado + 60000);
 
             } catch (SecurityException e) {
                 Log.e("ALARMA", "Error de seguridad: " + e.getMessage());
-                // Fallback a setAndAllowWhileIdle
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tiempoProgramado, pendingIntent);
                     Toast.makeText(this, "⚠️ Usando modo estándar", Toast.LENGTH_SHORT).show();

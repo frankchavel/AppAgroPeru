@@ -50,7 +50,7 @@ import unc.edu.pe.agroper.Service.Clima.WeatherResponse;
 import unc.edu.pe.agroper.Service.Clima.WeatherRetrofitClient;
 import unc.edu.pe.agroper.Service.RetrofitClient;
 
-public class ParcelaActivity extends BaseActivity {
+public class ParcelaActivity extends AppCompatActivity {
     private TextView tvTemp, tvDesc, tvHumedad, tvLluvia, tvViento;
     private ProgressBar pbClima;
     private FusedLocationProviderClient fusedLocationClient;
@@ -67,7 +67,6 @@ public class ParcelaActivity extends BaseActivity {
     private Handler handler = new Handler();
     private Runnable runnable;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,10 +78,10 @@ public class ParcelaActivity extends BaseActivity {
             return insets;
         });
 
-        // Configurar menú inferior (desde BaseActivity)
-        setupBottomNavigation();
-        selectBottomNavigationItem();
-
+        findViewById(R.id.btn_recordatorios).setOnClickListener(v -> {
+            Intent intent = new Intent(this, AgregarRecordatorioActivity.class);
+            startActivity(intent);
+        });
         // Botón: Ver Mapa → ZonaAgricolaActivity
         findViewById(R.id.btn_ver_mapa).setOnClickListener(v -> {
             Intent intent = new Intent(this, VisualizarZonasActivity.class);
