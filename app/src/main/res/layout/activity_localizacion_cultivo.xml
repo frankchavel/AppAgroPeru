@@ -6,219 +6,336 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0C1A0E">
+    android:background="#F0F7F0">
 
-    <!-- MAPA OCUPA TODA LA PANTALLA -->
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- OVERLAY SUPERIOR: Barra de título -->
+    <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="16dp"
+        android:paddingTop="20dp"
         android:paddingHorizontal="16dp">
 
-        <!-- Header con fondo semitransparente -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:cardCornerRadius="16dp"
+            android:layout_height="64dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="6dp"
-            app:cardBackgroundColor="#CC0C1A0E">
+            app:cardBackgroundColor="#1B5E20">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="14dp">
 
-                <ImageView
-                    android:id="@+id/btn_back"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_media_previous"
-                    android:padding="4dp"
-                    app:tint="#39FF14"/>
+                <!-- Botón Back -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#2E7D32"
+                    app:cardElevation="0dp">
+                    <ImageView
+                        android:id="@+id/btn_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@android:drawable/ic_media_previous"
+                        android:padding="10dp"
+                        app:tint="#FFFFFF"/>
+                </com.google.android.material.card.MaterialCardView>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Registrar Zona Agrícola"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="12dp"/>
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Registrar Zona"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Toca el mapa para fijar el punto"
+                        android:textColor="#A5D6A7"
+                        android:textSize="11sp"/>
+                </LinearLayout>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_ubicacion_actual"
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="34dp"
                     android:text="Mi ubicación"
-                    android:textColor="#0C1A0E"
+                    android:textColor="#1B5E20"
                     android:textSize="11sp"
-                    app:chipBackgroundColor="#39FF14"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="#69F0AE"
                     app:chipIcon="@android:drawable/ic_menu_mylocation"
-                    app:chipIconSize="14dp"
-                    app:chipIconTint="#0C1A0E"
+                    app:chipIconSize="15dp"
+                    app:chipIconTint="#1B5E20"
+                    app:chipCornerRadius="10dp"
                     tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
     </LinearLayout>
 
-    <!-- BOTÓN FLOTANTE: Usar ubicación actual -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_location"
+    <!-- INDICADOR GPS FLOTANTE -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_coords_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="96dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:strokeColor="#A5D6A7"
+        app:strokeWidth="1.5dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="#4CAF50"
+                android:layout_marginEnd="8dp"/>
+            <TextView
+                android:id="@+id/tv_coords_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sin ubicación seleccionada"
+                android:textColor="#388E3C"
+                android:textSize="11sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- FABs DERECHA -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:layout_marginBottom="380dp"
-        android:src="@android:drawable/ic_menu_mylocation"
-        app:backgroundTint="#39FF14"
-        app:elevation="8dp"
-        app:fabSize="normal"
-        app:tint="#0C1A0E"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:orientation="vertical"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="410dp"
+        android:gravity="end">
 
-    <!-- BOTTOM SHEET: Formulario de registro -->
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_ver_zonas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Ver Zonas"
+            android:textColor="#1B5E20"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            app:icon="@android:drawable/ic_menu_agenda"
+            app:iconTint="#1B5E20"
+            app:backgroundTint="#69F0AE"
+            app:elevation="8dp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_mylocation"
+            app:backgroundTint="#FFFFFF"
+            app:elevation="8dp"
+            app:fabSize="normal"
+            app:tint="#2E7D32"
+            app:borderWidth="0dp"
+            app:strokeColor="#A5D6A7"
+            app:strokeWidth="2dp"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <!-- BOTTOM SHEET -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottom_sheet_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="16dp"
-        app:cardBackgroundColor="#F5F7F5">
+        app:cardCornerRadius="32dp"
+        app:cardElevation="20dp"
+        app:cardBackgroundColor="#FFFFFF">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="420dp">
+            android:maxHeight="460dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="20dp"
-                android:paddingBottom="24dp"
-                android:paddingTop="12dp">
+                android:paddingBottom="28dp"
+                android:paddingTop="14dp">
 
-                <!-- Handle -->
+                <!-- Handle pill -->
                 <View
                     android:layout_width="40dp"
                     android:layout_height="4dp"
-                    android:background="#CFD8DC"
+                    android:background="#C8E6C9"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="18dp"/>
 
-                <!-- Título del formulario -->
+                <!-- Encabezado -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="16dp">
 
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="28dp"
-                        android:background="#39FF14"
-                        android:layout_marginEnd="10dp"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:cardCornerRadius="14dp"
+                        app:cardBackgroundColor="#E8F5E9"
+                        app:cardElevation="0dp"
+                        android:layout_marginEnd="12dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@android:drawable/ic_menu_mapmode"
+                            android:padding="11dp"
+                            app:tint="#2E7D32"/>
+                    </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Datos del Terreno"
-                            android:textColor="#0C1A0E"
+                            android:textColor="#1B5E20"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Toca el mapa para fijar la ubicación"
+                            android:text="Completa los campos para registrar"
                             android:textColor="#78909C"
                             android:textSize="12sp"/>
                     </LinearLayout>
 
-                    <!-- Indicador de pin en mapa -->
+                    <!-- Badge pin -->
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_coords_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="8dp"
-                        app:cardBackgroundColor="#E8F5E9">
+                        app:cardCornerRadius="10dp"
+                        app:cardBackgroundColor="#E8F5E9"
+                        app:strokeColor="#A5D6A7"
+                        app:strokeWidth="1dp"
+                        app:cardElevation="0dp">
                         <TextView
-                            android:id="@+id/tv_coords_status"
+                            android:id="@+id/tv_pin_badge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sin ubicación"
+                            android:text="📍 Sin pin"
                             android:textColor="#388E3C"
                             android:textSize="10sp"
                             android:textStyle="bold"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"/>
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="6dp"/>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
-                <!-- Campo: Nombre de Zona -->
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E8F5E9"
+                    android:layout_marginBottom="18dp"/>
+
+                <!-- Label Nombre -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NOMBRE DE LA ZONA"
+                    android:textColor="#388E3C"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="6dp"/>
+
+                <!-- Campo Nombre -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_nombre_zona"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:hint="Nombre de la Zona"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:boxBackgroundColor="#FFFFFF"
-                    app:boxStrokeColor="#39FF14"
-                    app:hintTextColor="#388E3C"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Ej: Parcela Norte - Sector A"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    app:boxBackgroundColor="#F9FBF9"
+                    app:boxStrokeColor="#4CAF50"
+                    app:boxStrokeWidth="1.5dp"
+                    app:hintTextColor="#81C784"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@android:drawable/ic_menu_mapmode"
-                    app:startIconTint="#39FF14">
-
+                    app:startIconTint="#4CAF50">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_nombre_zona"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapSentences"
-                        android:textColor="#0C1A0E"/>
+                        android:textColor="#1B5E20"
+                        android:textColorHint="#A5D6A7"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Campo: Descripción -->
+                <!-- Label Descripción -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DESCRIPCIÓN"
+                    android:textColor="#388E3C"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="6dp"/>
+
+                <!-- Campo Descripción -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_descripcion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:hint="Descripción del terreno"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:boxBackgroundColor="#FFFFFF"
-                    app:boxStrokeColor="#39FF14"
-                    app:hintTextColor="#388E3C"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Cultivo, características del suelo..."
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    app:boxBackgroundColor="#F9FBF9"
+                    app:boxStrokeColor="#4CAF50"
+                    app:boxStrokeWidth="1.5dp"
+                    app:hintTextColor="#81C784"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@android:drawable/ic_menu_edit"
-                    app:startIconTint="#39FF14">
-
+                    app:startIconTint="#4CAF50">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_descripcion"
                         android:layout_width="match_parent"
@@ -226,95 +343,157 @@
                         android:inputType="textMultiLine|textCapSentences"
                         android:minLines="2"
                         android:maxLines="3"
-                        android:textColor="#0C1A0E"/>
+                        android:textColor="#1B5E20"
+                        android:textColorHint="#A5D6A7"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Coordenadas (auto-llenado desde mapa) -->
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Card Coordenadas GPS -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="COORDENADAS (desde el mapa)"
-                    android:textColor="#78909C"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="20dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardBackgroundColor="#F1F8E9"
+                    app:strokeColor="#C5E1A5"
+                    app:strokeWidth="1dp"
+                    app:cardElevation="0dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="12dp">
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@android:drawable/ic_menu_mylocation"
+                                android:layout_marginEnd="6dp"
+                                app:tint="#388E3C"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="COORDENADAS GPS"
+                                android:textColor="#388E3C"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Auto desde el mapa"
+                                android:textColor="#81C784"
+                                android:textSize="10sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_latitud"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:hint="Latitud"
+                                app:boxCornerRadiusTopStart="10dp"
+                                app:boxCornerRadiusTopEnd="10dp"
+                                app:boxCornerRadiusBottomStart="10dp"
+                                app:boxCornerRadiusBottomEnd="10dp"
+                                app:boxBackgroundColor="#FFFFFF"
+                                app:boxStrokeColor="#C5E1A5"
+                                app:hintTextColor="#81C784"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_latitud"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal|numberSigned"
+                                    android:textColor="#33691E"
+                                    android:textSize="13sp"
+                                    android:focusable="false"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_longitud"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp"
+                                android:hint="Longitud"
+                                app:boxCornerRadiusTopStart="10dp"
+                                app:boxCornerRadiusTopEnd="10dp"
+                                app:boxCornerRadiusBottomStart="10dp"
+                                app:boxCornerRadiusBottomEnd="10dp"
+                                app:boxBackgroundColor="#FFFFFF"
+                                app:boxStrokeColor="#C5E1A5"
+                                app:hintTextColor="#81C784"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_longitud"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal|numberSigned"
+                                    android:textColor="#33691E"
+                                    android:textSize="13sp"
+                                    android:focusable="false"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Botones -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
+                    android:orientation="horizontal">
 
-                    <!-- Latitud -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_latitud"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_ver_zonas"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="6dp"
-                        android:hint="Latitud"
-                        app:boxCornerRadiusTopStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxBackgroundColor="#E8F5E9"
-                        app:boxStrokeColor="#A5D6A7"
-                        app:hintTextColor="#388E3C"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        android:text="Ver Zonas"
+                        android:textColor="#2E7D32"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="#E8F5E9"
+                        app:cornerRadius="16dp"
+                        app:elevation="0dp"
+                        app:icon="@android:drawable/ic_menu_agenda"
+                        app:iconGravity="textStart"
+                        app:iconPadding="3dp"
+                        app:iconTint="#2E7D32"
+                        app:strokeColor="#A5D6A7"
+                        app:strokeWidth="1.5dp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_latitud"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal|numberSigned"
-                            android:textColor="#0C1A0E"
-                            android:focusable="false"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Longitud -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_longitud"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_guardar"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="6dp"
-                        android:hint="Longitud"
-                        app:boxCornerRadiusTopStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxBackgroundColor="#E8F5E9"
-                        app:boxStrokeColor="#A5D6A7"
-                        app:hintTextColor="#388E3C"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_longitud"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal|numberSigned"
-                            android:textColor="#0C1A0E"
-                            android:focusable="false"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="52dp"
+                        android:layout_weight="2"
+                        android:text="Registrar Zona"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:letterSpacing="0.02"
+                        app:backgroundTint="#2E7D32"
+                        app:cornerRadius="16dp"
+                        app:icon="@android:drawable/ic_menu_save"
+                        app:iconTint="#FFFFFF"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp"
+                        app:elevation="4dp"/>
                 </LinearLayout>
-
-                <!-- Botón Guardar -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_guardar"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="Registrar Zona Agrícola"
-                    android:textColor="#0C1A0E"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    app:backgroundTint="#39FF14"
-                    app:cornerRadius="14dp"
-                    app:icon="@android:drawable/ic_menu_save"
-                    app:iconTint="#0C1A0E"
-                    app:iconGravity="textStart"
-                    app:elevation="4dp"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

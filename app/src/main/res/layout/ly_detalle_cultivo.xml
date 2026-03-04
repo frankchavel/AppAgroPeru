@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDFBF7">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_asignar_insumo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- HEADER -->
+            <ImageView
+                android:id="@+id/iv_cultivo_foto"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_leaf"
+                android:background="#E8F5E9"/>
+
+            <TextView
+                android:id="@+id/tv_titulo_cultivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Papa Amarilla"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:padding="16dp"
+                android:textColor="#0C1324"/>
+
+            <TextView
+                android:id="@+id/tv_fecha_siembra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sembrado el 15/09/2025"
+                android:textColor="#546E7A"
+                android:paddingStart="16dp"
+                android:paddingBottom="16dp"/>
+
+            <!-- PROGRESO -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Progreso del Ciclo"
+                android:textStyle="bold"
+                android:paddingStart="16dp"/>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/pb_progreso"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_margin="16dp"
+                android:progress="60"
+                app:indicatorColor="#2E7D32"/>
+
+            <!-- INSUMOS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Insumos Aplicados"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_insumos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- BOTÓN FIJO ABAJO -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_asignar_insumo"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="Asignar Insumo"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        app:backgroundTint="#2E7D32"
+        app:cornerRadius="16dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -89,6 +89,10 @@ public class LocalizacionCultivoActivity extends AppCompatActivity implements On
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        findViewById(R.id.btn_ver_zonas).setOnClickListener(v -> {
+            Intent intent = new Intent(this, ZonasAgricolasActivity.class);
+            startActivity(intent);
+        });
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         apiService = RetrofitClient.getClient().create(ApiService.class);

@@ -64,7 +64,7 @@ public class ParcelaActivity extends AppCompatActivity {
         });
         // Botón: Ver Mapa → ZonaAgricolaActivity
         findViewById(R.id.btn_ver_mapa).setOnClickListener(v -> {
-            Intent intent = new Intent(this, LocalizacionCultivoActivity.class);
+            Intent intent = new Intent(this, VisualizarZonasActivity.class);
             startActivity(intent);
         });
         // Botón: Ver Precio → ZonaAgricolaActivity

@@ -1,6 +1,5 @@
 package unc.edu.pe.agroper;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -15,65 +14,65 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Cultivo;
+import Model.ZonaAgricola;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import unc.edu.pe.agroper.Adapter.CultivoAdapter;
+import unc.edu.pe.agroper.Adapter.ZonaAdapter;
 import unc.edu.pe.agroper.Service.ApiService;
 import unc.edu.pe.agroper.Service.RetrofitClient;
 
-public class Lista_Cultivos_Activity extends AppCompatActivity {
+public class ZonasAgricolasActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private CultivoAdapter adapter;
-    private List<Cultivo> listaCultivos = new ArrayList<>();
+    private ZonaAdapter adapter;
+    private List<ZonaAgricola> lista = new ArrayList<>();
     private ApiService apiService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.item_lista_cultivos);
+        setContentView(R.layout.activity_zonas_agricolas);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        recyclerView = findViewById(R.id.recycler_cultivos);
+        recyclerView = findViewById(R.id.recyclerZonas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new CultivoAdapter(this, listaCultivos);
+        adapter = new ZonaAdapter(lista);
         recyclerView.setAdapter(adapter);
 
         apiService = RetrofitClient.getClient().create(ApiService.class);
-        cargarCultivos();
+
+        cargarZonas();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        cargarCultivos();
-    }
+    private void cargarZonas() {
 
-    private void cargarCultivos() {
-        apiService.obtenerCultivos().enqueue(new Callback<List<Cultivo>>() {
+        apiService.obtenerZonas().enqueue(new Callback<List<ZonaAgricola>>() {
+
             @Override
-            public void onResponse(Call<List<Cultivo>> call, Response<List<Cultivo>> response) {
+            public void onResponse(Call<List<ZonaAgricola>> call,
+                                   Response<List<ZonaAgricola>> response) {
+
                 if (response.isSuccessful() && response.body() != null) {
-                    // Usa actualizarLista del adapter en lugar de notifyDataSetChanged
-                    adapter.actualizarLista(response.body());
+
+                    lista.clear();
+                    lista.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+
                 } else {
-                    Toast.makeText(Lista_Cultivos_Activity.this,
-                            "Error al obtener cultivos",
+                    Toast.makeText(ZonasAgricolasActivity.this,
+                            "Error al obtener zonas",
                             Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Cultivo>> call, Throwable t) {
-                Toast.makeText(Lista_Cultivos_Activity.this,
-                        "Error conexión: " + t.getMessage(),
+            public void onFailure(Call<List<ZonaAgricola>> call, Throwable t) {
+                Toast.makeText(ZonasAgricolasActivity.this,
+                        "Sin conexión: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });

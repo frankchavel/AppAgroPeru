@@ -25,7 +25,6 @@ import unc.edu.pe.agroper.databinding.ActivityRegistroUsuarioBinding;
 public class RegistroUsuarioActivity extends AppCompatActivity {
     ActivityRegistroUsuarioBinding binding;
 
-    private ActivityRegistroUsuarioBinding binding;
     private ApiService apiService;
     private FirebaseAuth mAuth;
 

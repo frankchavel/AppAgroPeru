@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +19,18 @@
         android:theme="@style/Theme.AgroPerú" >
         <activity
             android:name=".BaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VisualizarZonasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarRecursoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetalleCultivoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ZonasAgricolasActivity"
             android:exported="false" />
         <activity
             android:name=".Lista_Cultivos_Activity"
@@ -51,7 +63,7 @@
             android:name=".PreciosActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivityRecurso"
+            android:name=".ActivityAsignarInsumo"
             android:exported="false" />
         <activity
             android:name=".RegistroCultivoActivity"

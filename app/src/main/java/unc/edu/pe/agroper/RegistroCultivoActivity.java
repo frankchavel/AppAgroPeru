@@ -83,6 +83,10 @@ public class RegistroCultivoActivity extends AppCompatActivity {
             Intent intent = new Intent(this, Lista_Cultivos_Activity.class);
             startActivity(intent);
         });
+        findViewById(R.id.btn_seleccionar_insumo).setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegistrarRecursoActivity.class);
+            startActivity(intent);
+        });
         initViews();
         configurarDropdownEstado();
         configurarEventos();
