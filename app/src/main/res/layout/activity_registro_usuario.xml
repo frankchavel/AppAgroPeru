@@ -127,65 +127,79 @@
                 app:layout_constraintTop_toBottomOf="@id/lbl_nombre" />
 
             <TextView
-                android:id="@+id/lbl_celular"
+                android:id="@+id/lbl_correo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Número de Celular"
+                android:text="Correo Electrónico"
                 android:textColor="#0C1324"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_nombre" />
 
             <EditText
-                android:id="@+id/etCorreoRegistrar"
+                android:id="@+id/et_correo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_white_rounded_border"
-                android:drawableStart="@drawable/ic_card_membership"
+                android:drawableStart="@android:drawable/ic_dialog_email"
                 android:drawablePadding="12dp"
-                android:hint="Ingresa los dígitos"
+                android:hint="ejemplo@correo.com"
                 android:paddingHorizontal="16dp"
                 android:inputType="textEmailAddress"
                 android:textColorHint="#90A4AE"
-                app:layout_constraintTop_toBottomOf="@id/lbl_celular" />
+                app:layout_constraintTop_toBottomOf="@id/lbl_correo" />
 
             <TextView
-                android:id="@+id/lbl_pin"
+                android:id="@+id/lbl_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="PIN de Seguridad (4-6 dígitos)"
+                android:text="Contraseña"
                 android:textColor="#0C1324"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etCorreoRegistrar" />
+                app:layout_constraintTop_toBottomOf="@id/et_correo" />
 
             <EditText
-                android:id="@+id/etpinRegistrar"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_white_rounded_border"
-                android:drawableStart="@drawable/ic_lock_outline"
+                android:drawableStart="@android:drawable/ic_lock_idle_lock"
                 android:drawablePadding="12dp"
-                android:hint="Crea un código numérico"
+                android:hint="Mínimo 6 caracteres"
                 android:paddingHorizontal="16dp"
-                android:inputType="numberPassword"
-                android:maxLength="6"
+                android:inputType="textPassword"
                 android:textColorHint="#90A4AE"
-                app:layout_constraintTop_toBottomOf="@id/lbl_pin" />
+                app:layout_constraintTop_toBottomOf="@id/lbl_password" />
 
             <TextView
+                android:id="@+id/lbl_confirmar_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Usa números fáciles de recordar para ti."
-                android:textColor="#78909C"
-                android:textSize="11sp"
+                android:layout_marginTop="16dp"
+                android:text="Confirmar Contraseña"
+                android:textColor="#0C1324"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etpinRegistrar" />
+                app:layout_constraintTop_toBottomOf="@id/et_password" />
+
+            <EditText
+                android:id="@+id/et_confirmar_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_white_rounded_border"
+                android:drawableStart="@android:drawable/ic_lock_idle_lock"
+                android:drawablePadding="12dp"
+                android:hint="Repite tu contraseña"
+                android:paddingHorizontal="16dp"
+                android:inputType="textPassword"
+                android:textColorHint="#90A4AE"
+                app:layout_constraintTop_toBottomOf="@id/lbl_confirmar_password" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_registrar"
@@ -197,7 +211,7 @@
                 android:textStyle="bold"
                 app:backgroundTint="#39FF14"
                 app:cornerRadius="8dp"
-                app:layout_constraintTop_toBottomOf="@id/etpinRegistrar" />
+                app:layout_constraintTop_toBottomOf="@id/et_confirmar_password" />
 
             <TextView
                 android:id="@+id/tv_legal"

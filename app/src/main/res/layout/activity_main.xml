@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="CELULAR O CORREO"
+                        android:text="CORREO"
                         android:textColor="#6D4C41"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -113,15 +113,15 @@
                         app:boxCornerRadiusBottomStart="12dp"
                         app:boxCornerRadiusTopEnd="12dp"
                         app:boxCornerRadiusTopStart="12dp"
-                        app:startIconDrawable="@android:drawable/ic_menu_call"
+                        app:startIconDrawable="@android:drawable/ic_dialog_email"
                         app:startIconTint="#9E9E9E">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_correo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/et_correo"
                             android:background="@android:color/transparent"
-                            android:hint="Ingresa tu celular o correo"
+                            android:hint="         Ingresa tu correo"
                             android:inputType="textEmailAddress"
                             android:paddingTop="16dp"
                             android:paddingBottom="16dp"
@@ -159,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/et_password"
                             android:background="@android:color/transparent"
-                            android:hint="     Ingresa tu contraseña"
+                            android:hint="       Ingresa tu contraseña"
                             android:inputType="textPassword"
                             android:paddingTop="16dp"
                             android:paddingBottom="16dp"
