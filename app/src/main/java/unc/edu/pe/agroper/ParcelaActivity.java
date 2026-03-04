@@ -143,15 +143,6 @@ public class ParcelaActivity extends BaseActivity {
         findViewById(R.id.btn_nuevo_cultivo).setOnClickListener(v -> {
             startActivity(new Intent(this, RegistroCultivoActivity.class));
         });
-
-        findViewById(R.id.tv_ver_todos).setOnClickListener(v -> {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                Intent intent = new Intent(this, MisCultivosActivity.class);
-                intent.putExtra("v_usu", user.getEmail());
-                startActivity(intent);
-            }
-        });
     }
 
     // 🔥 MÉTODO PARA JALAR EL NOMBRE DESDE TU API WEB
