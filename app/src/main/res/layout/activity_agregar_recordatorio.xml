@@ -234,6 +234,7 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
+                        <!-- Sección Cultivo -->
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -282,10 +283,14 @@
                             android:background="#F5F5F5"
                             android:layout_marginVertical="8dp" />
 
+                        <!-- Sección Fecha -->
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingVertical="8dp">
+                            android:paddingVertical="8dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?selectableItemBackground">
 
                             <ImageView
                                 android:id="@+id/ic_fecha"
@@ -298,13 +303,14 @@
                                 app:layout_constraintBottom_toBottomOf="parent" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:layout_marginStart="16dp"
                                 app:layout_constraintStart_toEndOf="@id/ic_fecha"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent">
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/tv_fecha_programada">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -322,9 +328,10 @@
                             </LinearLayout>
 
                             <TextView
+                                android:id="@+id/tv_fecha_programada"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10/25/2023"
+                                android:text="--/--/----"
                                 android:textColor="#39FF14"
                                 android:textStyle="bold"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -338,6 +345,69 @@
                             android:background="#F5F5F5"
                             android:layout_marginVertical="8dp" />
 
+                        <!-- Sección Hora (NUEVA) -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="8dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?selectableItemBackground">
+
+                            <ImageView
+                                android:id="@+id/ic_hora"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/ic_menu_recent_history"
+                                app:tint="#78909C"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginStart="16dp"
+                                app:layout_constraintStart_toEndOf="@id/ic_hora"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/tv_hora_programada">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Hora"
+                                    android:textColor="#0C1324"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Programada"
+                                    android:textColor="#0C1324"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_hora_programada"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="00:00"
+                                android:textColor="#39FF14"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#F5F5F5"
+                            android:layout_marginVertical="8dp" />
+
+                        <!-- Sección Notificación -->
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
