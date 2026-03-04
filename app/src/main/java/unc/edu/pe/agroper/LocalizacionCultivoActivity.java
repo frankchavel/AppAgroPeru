@@ -54,7 +54,7 @@ import retrofit2.Response;
 import unc.edu.pe.agroper.Service.ApiService;
 import unc.edu.pe.agroper.Service.RetrofitClient;
 
-public class LocalizacionCultivoActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class LocalizacionCultivoActivity extends BaseActivity implements OnMapReadyCallback {
     private static final int LOCATION_PERMISSION_CODE = 2001;
 
     private GoogleMap googleMap;
@@ -89,6 +89,10 @@ public class LocalizacionCultivoActivity extends AppCompatActivity implements On
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Configurar menú inferior (desde BaseActivity)
+        setupBottomNavigation();
+        selectBottomNavigationItem();
+
         findViewById(R.id.btn_ver_zonas).setOnClickListener(v -> {
             Intent intent = new Intent(this, ZonasAgricolasActivity.class);
             startActivity(intent);

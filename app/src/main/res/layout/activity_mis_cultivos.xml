@@ -9,9 +9,6 @@
     android:background="#FDFBF7"
     tools:context=".MisCultivosActivity">
 
-    <!-- ══════════════════════════════════════
-         HEADER VERDE
-    ══════════════════════════════════════ -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -23,14 +20,12 @@
         android:paddingTop="48dp"
         android:paddingBottom="28dp">
 
-        <!-- Fila: logo + título + avatar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <!-- Ícono hoja -->
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
@@ -39,7 +34,6 @@
                 android:src="@drawable/ic_leaf"
                 app:tint="#FFFFFF" />
 
-            <!-- Título -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -68,12 +62,8 @@
 
             </LinearLayout>
 
-            <!-- Avatar -->
-
-
         </LinearLayout>
 
-        <!-- Subtítulo -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,7 +72,6 @@
             android:textColor="@color/verdeOscuro"
             android:textSize="13sp" />
 
-        <!-- Tarjetas de resumen -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +79,6 @@
             android:layout_marginTop="20dp"
             android:weightSum="3">
 
-            <!-- Cultivos -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -128,7 +116,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Próxima cosecha -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -166,7 +153,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Hectáreas -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -208,9 +194,6 @@
 
     </LinearLayout>
 
-    <!-- ══════════════════════════════════════
-         SECCIÓN LISTA
-    ══════════════════════════════════════ -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -223,7 +206,15 @@
             android:orientation="vertical"
             android:paddingBottom="120dp">
 
-            <!-- Fila: subtítulo + botón "Nuevo" -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_mis_cultivos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingHorizontal="16dp"
+                tools:listitem="@layout/item_mi_cultivo" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -260,17 +251,6 @@
 
             </LinearLayout>
 
-            <!-- Lista de cultivos -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_mis_cultivos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:paddingHorizontal="16dp"
-                tools:listitem="@layout/item_mi_cultivo" />
-
-            <!-- Estado vacío (se oculta cuando hay datos) -->
             <LinearLayout
                 android:id="@+id/layout_vacio"
                 android:layout_width="match_parent"
@@ -326,15 +306,13 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- ══════════════════════════════════════
-         FAB FLOTANTE (alternativa rápida)
-    ══════════════════════════════════════ -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_nuevo_cultivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
+        app:layout_anchor="@id/bottom_nav"
+        app:layout_anchorGravity="top|end"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="90dp"
         android:text="Nuevo cultivo"
         android:textColor="#0C1324"
@@ -343,5 +321,18 @@
         app:icon="@android:drawable/ic_input_add"
         app:iconTint="#0C1324"
         app:elevation="6dp" />
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFF"
+        app:elevation="8dp"
+        app:itemIconTint="@color/bottom_nav_color_selector"
+        app:itemTextColor="@color/bottom_nav_color_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_bottom_nav" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import unc.edu.pe.agroper.databinding.ActivityPerfilBinding;
 
-public class PerfilActivity extends AppCompatActivity {
+public class PerfilActivity extends BaseActivity {
 
     ActivityPerfilBinding binding;
     @Override
@@ -24,5 +24,8 @@ public class PerfilActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Configurar menú inferior (desde BaseActivity)
+        setupBottomNavigation();
+        selectBottomNavigationItem();
     }
 }
