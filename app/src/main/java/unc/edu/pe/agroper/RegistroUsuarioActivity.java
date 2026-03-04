@@ -52,8 +52,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
     }
 
     private void crearUsuarioEnFirebase() {
-        String usu = binding.etCorreoRegistrar.getText().toString().trim();
-        String pass = binding.etpinRegistrar.getText().toString().trim();
+        String usu = binding.etCorreo.getText().toString().trim();
+        String pass = binding.etConfirmarPassword.getText().toString().trim();
         String name = binding.etNombre.getText().toString().trim();
 
         if (!validarCampos(name, usu, pass)) return;
@@ -117,11 +117,11 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
             return false;
         }
         if (email.isEmpty()) {
-            binding.etCorreoRegistrar.setError("Ingrese su correo");
+            binding.etCorreo.setError("Ingrese su correo");
             return false;
         }
         if (password.length() < 6) {
-            binding.etpinRegistrar.setError("Mínimo 6 caracteres");
+            binding.etConfirmarPassword.setError("Mínimo 6 caracteres");
             return false;
         }
         return true;
