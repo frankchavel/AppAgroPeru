@@ -67,6 +67,7 @@
                     android:textSize="13sp"
                     android:maxLines="2"
                     android:ellipsize="end"/>
+
             </LinearLayout>
 
             <!-- Badge Activa -->
@@ -78,6 +79,7 @@
                 app:strokeColor="#A5D6A7"
                 app:strokeWidth="1dp"
                 app:cardElevation="0dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,6 +89,7 @@
                     android:textStyle="bold"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"/>
+
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
@@ -121,25 +124,17 @@
                 android:textColor="#388E3C"
                 android:textSize="12sp"
                 android:fontFamily="monospace"/>
+            <!-- Botón eliminar -->
+            <ImageView
+                android:id="@+id/btnEliminarZona"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:padding="2dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#E53935"/>
         </LinearLayout>
 
-        <!-- Botón Ver Recursos -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnVerRecursos"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Ver Recursos de la Zona"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:letterSpacing="0.02"
-            app:backgroundTint="#2E7D32"
-            app:cornerRadius="14dp"
-            app:icon="@android:drawable/ic_menu_agenda"
-            app:iconTint="#FFFFFF"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:elevation="2dp"/>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

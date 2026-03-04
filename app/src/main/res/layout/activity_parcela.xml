@@ -609,17 +609,9 @@
                         android:textSize="16sp"
                         android:textStyle="bold"/>
 
-                    <TextView
-                        android:id="@+id/tv_ver_todos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="Ver todos"
-                        android:textColor="#2E7D32"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        tools:ignore="TouchTargetSizeCheck"/>
+
+
+
                 </LinearLayout>
                 <!-- ============================================================
                      LISTA DE CULTIVOS

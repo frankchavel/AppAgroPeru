@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,29 +31,44 @@ import unc.edu.pe.agroper.R;
 
 public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHolder> {
 
+    // ===== INTERFACES =====
     public interface OnAsignarInsumoListener {
         void onAsignarInsumo(Cultivo cultivo);
     }
 
+    public interface OnEliminarCultivoListener {
+        void onEliminar(Cultivo cultivo, int position);
+    }
+
+    // ===== VARIABLES =====
     private final Context context;
     private List<Cultivo> lista;
     private OnAsignarInsumoListener listenerInsumo;
+    private OnEliminarCultivoListener listenerEliminar;
 
+    // ===== CONSTRUCTOR =====
     public CultivoAdapter(Context context, List<Cultivo> lista) {
         this.context = context;
         this.lista = lista != null ? lista : new ArrayList<>();
     }
 
+    // ===== SETTERS DE LISTENERS =====
     public void setOnAsignarInsumoListener(OnAsignarInsumoListener listener) {
         this.listenerInsumo = listener;
     }
 
+    public void setOnEliminarCultivoListener(OnEliminarCultivoListener listener) {
+        this.listenerEliminar = listener;
+    }
+
+    // ===== ACTUALIZAR LISTA =====
     public void actualizarLista(List<Cultivo> nuevaLista) {
         lista.clear();
         lista.addAll(nuevaLista);
         notifyDataSetChanged();
     }
 
+    // ===== VIEW HOLDER =====
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,6 +77,7 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
         return new ViewHolder(view);
     }
 
+    // ===== BIND =====
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -78,7 +95,7 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
                 "Área: " + cultivo.getAreaCultivo() +
                         " ha | Zona ID: " + cultivo.getZonaID());
 
-        // -------- PROGRESO --------
+        // ===== PROGRESO =====
         try {
             String fechaSiembraStr = cultivo.getFechaSiembra();
             String fechaEstimadaStr = cultivo.getFechaCosechaEstimada();
@@ -116,23 +133,31 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
             holder.progressBar.setProgress(0);
         }
 
-        // -------- BOTÓN DETALLES --------
-        if (holder.btnDetalles != null) {
-            holder.btnDetalles.setOnClickListener(v -> {
-                Intent intent = new Intent(context, DetalleCultivoActivity.class);
-                intent.putExtra("cultivoId", cultivo.getCultivoID());
-                context.startActivity(intent);
-            });
-        }
+        // ===== BOTÓN DETALLES =====
+        holder.btnDetalles.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetalleCultivoActivity.class);
+            intent.putExtra("cultivoId", cultivo.getCultivoID());
+            context.startActivity(intent);
+        });
 
-        // -------- BOTÓN ASIGNAR INSUMO --------
-        if (holder.btnAsignarInsumo != null) {
-            holder.btnAsignarInsumo.setOnClickListener(v -> {
+        // ===== BOTÓN ASIGNAR INSUMO =====
+        holder.btnAsignarInsumo.setOnClickListener(v -> {
+            if (listenerInsumo != null) {
+                listenerInsumo.onAsignarInsumo(cultivo);
+            } else {
                 Intent intent = new Intent(context, ActivityAsignarInsumo.class);
                 intent.putExtra("cultivoId", cultivo.getCultivoID());
                 context.startActivity(intent);
-            });
-        }
+            }
+        });
+
+        // ===== BOTÓN ELIMINAR =====
+        holder.btnEliminar.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION && listenerEliminar != null) {
+                listenerEliminar.onEliminar(lista.get(currentPosition), currentPosition);
+            }
+        });
     }
 
     @Override
@@ -140,14 +165,17 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
         return lista.size();
     }
 
+    // ===== VIEW HOLDER CLASS =====
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvNombre, tvEstado, tvInfo, tvProgresoDias;
         LinearProgressIndicator progressBar;
         MaterialButton btnDetalles, btnAsignarInsumo;
+        ImageButton btnEliminar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             tvNombre = itemView.findViewById(R.id.tv_nombre_lote);
             tvEstado = itemView.findViewById(R.id.tv_estado);
             tvInfo = itemView.findViewById(R.id.tv_info);
@@ -155,6 +183,7 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
             progressBar = itemView.findViewById(R.id.pb_progreso);
             btnDetalles = itemView.findViewById(R.id.btn_detalles);
             btnAsignarInsumo = itemView.findViewById(R.id.btn_asignar_insumo);
+            btnEliminar = itemView.findViewById(R.id.btnEliminar);
         }
     }
 }
