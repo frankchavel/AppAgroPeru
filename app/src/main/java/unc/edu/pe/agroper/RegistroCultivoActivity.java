@@ -32,11 +32,14 @@ import androidx.work.WorkManager;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -66,7 +69,6 @@ public class RegistroCultivoActivity extends AppCompatActivity {
 
     // Data
     private int zonaID = 0;
-    private int usuarioID = 1; // Simulado usuario logueado
 
     private int zonaSeleccionadaId = 0;
 
@@ -171,7 +173,6 @@ public class RegistroCultivoActivity extends AppCompatActivity {
         String descripcion = etDescripcion.getText().toString().trim();
         String areaStr = etArea.getText().toString().trim();
         String riegoStr = etRiego.getText().toString().trim();
-        String estado = actvEstado.getText().toString().trim();
 
         if (nombre.isEmpty()) {
             etNombre.setError("Ingresa el nombre");
@@ -186,9 +187,12 @@ public class RegistroCultivoActivity extends AppCompatActivity {
         Cultivo cultivo = new Cultivo();
 
         cultivo.setZonaID(zonaID);
-        cultivo.setUsuarioID(usuarioID);
-        cultivo.setNombreCultivo(etNombre.getText().toString());
-        cultivo.setDescripcion(etDescripcion.getText().toString());
+        cultivo.setUsuarioID(0);
+        cultivo.setProductoAgricolaID(1); // IMPORTANTE
+        cultivo.setNombreCultivo(nombre);
+        cultivo.setDescripcion(descripcion);
+        cultivo.setFechaCosechaReal(null);
+        cultivo.setProductoAgricolaID(1);
 
         cultivo.setAreaCultivo(
                 areaStr.isEmpty() ? 0 : Double.parseDouble(areaStr)
@@ -198,10 +202,9 @@ public class RegistroCultivoActivity extends AppCompatActivity {
                 riegoStr.isEmpty() ? 0 : Integer.parseInt(riegoStr)
         );
 
-        String fechaActual = OffsetDateTime.now().toString();
-        cultivo.setFechaRegistro(fechaActual);
+        cultivo.setFechaRegistro(OffsetDateTime.now().toString());
 
-        cultivo.setEstado("Activo");
+        cultivo.setEstado("Activo"); // CORREGIDO
 
         String fechaSiembraUI = tvFechaSiembra.getText().toString().trim();
         String fechaCosechaUI = tvFechaCosecha.getText().toString().trim();
@@ -226,6 +229,15 @@ public class RegistroCultivoActivity extends AppCompatActivity {
     }
 
     private void enviarCultivo(Cultivo cultivo) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            snack("Usuario no autenticado");
+            return;
+        }
+
+        cultivo.setCorreoUsuario(user.getEmail()); // 🔥 ESTA ES LA SOLUCIÓN REAL
 
         btnGuardar.setEnabled(false);
         btnGuardar.setText("Guardando...");
@@ -292,16 +304,20 @@ public class RegistroCultivoActivity extends AppCompatActivity {
     private String convertirFechaParaAPI(String fechaUI) {
         try {
             DateTimeFormatter formatoUI = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            DateTimeFormatter formatoAPI = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
             LocalDate fecha = LocalDate.parse(fechaUI, formatoUI);
-            return fecha.format(formatoAPI);
+
+            OffsetDateTime fechaOffset = fecha
+                    .atStartOfDay()
+                    .atOffset(ZoneOffset.UTC);
+
+            return fechaOffset.toString();
+            // 2026-03-03T00:00:00Z
 
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
-
     private void programarNotificacion(String nombreCultivo, String fechaCosechaAPI) {
 
         try {

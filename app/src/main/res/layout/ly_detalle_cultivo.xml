@@ -80,6 +80,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"/>
+            <!-- TOTAL COSTO -->
+            <TextView
+                android:id="@+id/tv_total_costos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total de Producción: S/ 0.00"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32"
+                android:padding="16dp"/>
+            <TextView
+                android:id="@+id/tv_total_insumos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Insumos: S/ 0.00"
+                android:textStyle="bold"
+                android:paddingStart="16dp"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:id="@+id/tv_mano_obra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mano de Obra: S/ 0.00"
+                android:paddingStart="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_maquinaria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Maquinaria: S/ 0.00"
+                android:paddingStart="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_total_produccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TOTAL PRODUCCIÓN: S/ 0.00"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32"
+                android:padding="16dp"/>
 
         </LinearLayout>
 

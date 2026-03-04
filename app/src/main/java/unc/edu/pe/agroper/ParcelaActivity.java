@@ -6,9 +6,11 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,21 +22,27 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import Model.Cultivo;
 import Model.ZonaAgricola;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import unc.edu.pe.agroper.Adapter.CultivoDashboardAdapter;
 import unc.edu.pe.agroper.Service.ApiService;
 import unc.edu.pe.agroper.Service.Clima.WeatherApiService;
 import unc.edu.pe.agroper.Service.Clima.WeatherRequest;
@@ -51,6 +59,13 @@ public class ParcelaActivity extends BaseActivity {
     private ApiService apiService;
     private WeatherApiService weatherService;
 
+    private MaterialCardView cardHelada, cardLluvia;
+    private TextView tvAlertaHelada, tvAlertaLluvia;
+    private RecyclerView rvCultivos;
+    private CultivoDashboardAdapter adapter;
+    private List<Cultivo> listaCultivos = new ArrayList<>();
+    private Handler handler = new Handler();
+    private Runnable runnable;
 
 
     @Override
@@ -78,6 +93,7 @@ public class ParcelaActivity extends BaseActivity {
             Intent intent = new Intent(this, PreciosActivity.class);
             startActivity(intent);
         });
+
         // Botón: Ver Precio → ZonaAgricolaActivity
         findViewById(R.id.btn_nuevo_cultivo).setOnClickListener(v -> {
 
@@ -98,6 +114,20 @@ public class ParcelaActivity extends BaseActivity {
         tvLluvia = findViewById(R.id.tv_lluvia);
         tvViento = findViewById(R.id.tv_viento);
         pbClima = findViewById(R.id.pb_clima);
+        cardHelada = findViewById(R.id.card_alerta_helada);
+        cardLluvia = findViewById(R.id.card_alerta_lluvia);
+
+        tvAlertaHelada = findViewById(R.id.tv_alerta_helada);
+        tvAlertaLluvia = findViewById(R.id.tv_alerta_lluvia);
+        rvCultivos = findViewById(R.id.rv_cultivos);
+        rvCultivos.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new CultivoDashboardAdapter(listaCultivos);
+        rvCultivos.setAdapter(adapter);
+
+        // Ocultarlas por defecto
+        cardHelada.setVisibility(View.GONE);
+        cardLluvia.setVisibility(View.GONE);
 
         apiService = RetrofitClient.getClient().create(ApiService.class);
         weatherService = WeatherRetrofitClient
@@ -105,6 +135,7 @@ public class ParcelaActivity extends BaseActivity {
                 .create(WeatherApiService.class);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         obtenerUbicacionActualYClima();
+        cargarMisCultivos();
 
     }
     private void obtenerNombreLugar(double lat, double lng) {
@@ -170,6 +201,33 @@ public class ParcelaActivity extends BaseActivity {
             }
         });
     }
+    private void cargarMisCultivos() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+
+        apiService.obtenerCultivosPorUsuario(user.getEmail())
+                .enqueue(new Callback<List<Cultivo>>() {
+
+                    @Override
+                    public void onResponse(Call<List<Cultivo>> call,
+                                           Response<List<Cultivo>> response) {
+
+                        if (response.isSuccessful() && response.body() != null) {
+
+                            listaCultivos.clear();
+                            listaCultivos.addAll(response.body());
+
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Cultivo>> call, Throwable t) {
+                        Log.e("CULTIVOS", "Error: " + t.getMessage());
+                    }
+                });
+    }
 
     private void obtenerClima(double lat, double lng) {
 
@@ -195,6 +253,7 @@ public class ParcelaActivity extends BaseActivity {
                             tvViento.setText(
                                     Math.round(clima.wind.speed.value) + " km/h"
                             );
+                            evaluarAlertas(clima);
 
                         } else {
                             Log.e("CLIMA_ERROR", "Error: " + response.code());
@@ -227,9 +286,22 @@ public class ParcelaActivity extends BaseActivity {
                 Toast.makeText(this,
                         "Permiso de ubicación denegado",
                         Toast.LENGTH_LONG).show();
+
             }
         }
     }
+    // =============================
+    // ALERTAS
+    // =============================
 
+    private void evaluarAlertas(WeatherResponse clima) {
 
+        cardLluvia.setVisibility(View.VISIBLE);
+        tvAlertaLluvia.setText("🌧 PRUEBA LLUVIA 90%");
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarMisCultivos();
+    }
 }

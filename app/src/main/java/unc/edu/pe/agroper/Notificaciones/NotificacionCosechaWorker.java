@@ -58,8 +58,8 @@ public class NotificacionCosechaWorker extends Worker {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(context, channelId)
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle("🌾 Cosecha Mañana")
-                        .setContentText("El cultivo " + nombreCultivo + " se cosecha mañana.")
+                        .setContentTitle("🌾 Cosecha")
+                        .setContentText("El cultivo " + nombreCultivo + " se debe cosechar.")
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setAutoCancel(true);
 

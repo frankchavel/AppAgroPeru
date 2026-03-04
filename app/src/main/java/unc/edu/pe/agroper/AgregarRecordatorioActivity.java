@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -229,40 +230,117 @@ public class AgregarRecordatorioActivity extends AppCompatActivity {
 
     private void programarNotificacion(Recordatorio r) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        long tiempoProgramado = calendario.getTimeInMillis();
+        long ahora = System.currentTimeMillis();
+        long diferencia = tiempoProgramado - ahora;
+
+        Log.d("ALARMA", "=== PROGRAMANDO NOTIFICACIÓN ===");
+        Log.d("ALARMA", "Hora actual: " + dateFormat.format(ahora));
+        Log.d("ALARMA", "Hora programada: " + dateFormat.format(tiempoProgramado));
+        Log.d("ALARMA", "Diferencia (minutos): " + (diferencia / 1000 / 60));
+
+        // Si la diferencia es menor a 1 minuto, enviar inmediatamente
+        if (diferencia < 60000) {
+            Log.d("ALARMA", "Diferencia menor a 1 minuto, enviando inmediatamente");
+            Intent intentInmediato = new Intent(this, NotificacionReceiver.class);
+            intentInmediato.putExtra("detalle", "🔔 " + r.getActividad() + " - " + r.getNotas());
+            intentInmediato.putExtra("actividad", r.getActividad());
+            intentInmediato.putExtra("recordatorioId", (int) (System.currentTimeMillis() % Integer.MAX_VALUE));
+            sendBroadcast(intentInmediato);
+            return;
+        }
+
         Intent intent = new Intent(this, NotificacionReceiver.class);
+        String mensaje = r.getActividad();
+        if (!r.getNotas().isEmpty()) {
+            mensaje += " - " + r.getNotas();
+        }
 
-        String mensaje = "Recordatorio: " + r.getActividad() + " para hoy";
         intent.putExtra("detalle", mensaje);
-        intent.putExtra("recordatorioId", r.getRecordatorioID());
+        intent.putExtra("actividad", r.getActividad());
+        intent.putExtra("recordatorioId", (int) (tiempoProgramado % Integer.MAX_VALUE));
 
-        int requestCode = (int) System.currentTimeMillis();
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;
+        }
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this,
-                requestCode,
+                (int) (tiempoProgramado % Integer.MAX_VALUE),
                 intent,
-                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+                flags
         );
 
-        // Usar la fecha y hora seleccionada por el usuario
-        long tiempoProgramado = calendario.getTimeInMillis();
+        if (alarmManager != null) {
+            try {
+                // ESTRATEGIA 1: Usar setAlarmClock (máxima prioridad)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(
+                            tiempoProgramado,
+                            pendingIntent
+                    );
+                    alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
+                    Log.d("ALARMA", "Alarma programada con setAlarmClock");
+                    Toast.makeText(this, "✅ Recordatorio programado para " +
+                            dateFormat.format(tiempoProgramado), Toast.LENGTH_LONG).show();
+                }
+                // ESTRATEGIA 2: Para versiones anteriores
+                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, tiempoProgramado, pendingIntent);
+                    Toast.makeText(this, "✅ Recordatorio programado", Toast.LENGTH_SHORT).show();
+                } else {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, tiempoProgramado, pendingIntent);
+                    Toast.makeText(this, "✅ Recordatorio programado", Toast.LENGTH_SHORT).show();
+                }
+
+                // ESTRATEGIA 3: Alarma backup 1 minuto después
+                programarNotificacionBackup(r, tiempoProgramado + 60000);
+
+            } catch (SecurityException e) {
+                Log.e("ALARMA", "Error de seguridad: " + e.getMessage());
+                // Fallback a setAndAllowWhileIdle
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tiempoProgramado, pendingIntent);
+                    Toast.makeText(this, "⚠️ Usando modo estándar", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private void programarNotificacionBackup(Recordatorio r, long tiempoBackup) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(this, NotificacionReceiver.class);
+        String mensaje = "[BACKUP] " + r.getActividad();
+        if (!r.getNotas().isEmpty()) {
+            mensaje += " - " + r.getNotas();
+        }
+
+        intent.putExtra("detalle", mensaje);
+        intent.putExtra("actividad", r.getActividad());
+        intent.putExtra("recordatorioId", (int) (tiempoBackup % Integer.MAX_VALUE));
+
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;
+        }
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                (int) (tiempoBackup % Integer.MAX_VALUE),
+                intent,
+                flags
+        );
 
         if (alarmManager != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                if (alarmManager.canScheduleExactAlarms()) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tiempoProgramado, pendingIntent);
-                    Toast.makeText(this, "Notificación programada para " + dateFormat.format(calendario.getTime()),
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tiempoProgramado, pendingIntent);
-                    Toast.makeText(this, "Notificación programada (modo estándar) para " +
-                            dateFormat.format(calendario.getTime()), Toast.LENGTH_SHORT).show();
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tiempoBackup, pendingIntent);
             } else {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tiempoProgramado, pendingIntent);
-                Toast.makeText(this, "Notificación programada para " + dateFormat.format(calendario.getTime()),
-                        Toast.LENGTH_SHORT).show();
+                alarmManager.set(AlarmManager.RTC_WAKEUP, tiempoBackup, pendingIntent);
             }
+            Log.d("ALARMA", "Alarma backup programada para: " + dateFormat.format(tiempoBackup));
         }
     }
 

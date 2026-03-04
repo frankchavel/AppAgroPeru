@@ -1,5 +1,7 @@
 package Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Cultivo {
     private int cultivoID;
     private int zonaID;
@@ -7,14 +9,38 @@ public class Cultivo {
     private String nombreCultivo;
     private String descripcion;
     private double areaCultivo;
+    @SerializedName("fechaSiembra")
     private String fechaSiembra;
+
+    @SerializedName("fechaCosechaEstimada")
     private String fechaCosechaEstimada;
     private String fechaCosechaReal;
+    @SerializedName("Estado")
     private String estado;
-    private int tiempoRiegoPromedio;
-    private String fechaRegistro;
 
-    // Getters y Setters
+    public int getProductoAgricolaID() {
+        return productoAgricolaID;
+    }
+
+    public void setProductoAgricolaID(int productoAgricolaID) {
+        this.productoAgricolaID = productoAgricolaID;
+    }
+
+    private int tiempoRiegoPromedio;
+    public int productoAgricolaID; // Agrega esta línea para el ProductoAgricolaID
+    private String fechaRegistro;
+    @SerializedName("CorreoUsuario")
+    private String correoUsuario;
+
+    public String getCorreoUsuario() {
+        return correoUsuario;
+    }
+
+    public void setCorreoUsuario(String correoUsuario) {
+        this.correoUsuario = correoUsuario;
+    }
+
+// Getters y Setters
 
     public int getCultivoID() { return cultivoID; }
     public void setCultivoID(int cultivoID) { this.cultivoID = cultivoID; }
@@ -44,7 +70,10 @@ public class Cultivo {
     public void setFechaCosechaReal(String fechaCosechaReal) { this.fechaCosechaReal = fechaCosechaReal; }
 
     public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+
+    public void setEstado(String estadoCultivo) {
+        this.estado = estadoCultivo;
+    }
 
     public int getTiempoRiegoPromedio() { return tiempoRiegoPromedio; }
     public void setTiempoRiegoPromedio(int tiempoRiegoPromedio) { this.tiempoRiegoPromedio = tiempoRiegoPromedio; }

@@ -286,6 +286,23 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="16dp"
                 android:paddingTop="16dp">
+                <!-- ============================================================
+     PRONÓSTICO 4 DÍAS
+============================================================ -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pronóstico de Lluvias (4 días)"
+                    android:textColor="#1B2A1E"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_pronostico_lluvia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"/>
 
                 <!-- ============================================================
                      ALERTAS CLIMÁTICAS
@@ -604,277 +621,15 @@
                         android:textStyle="bold"
                         tools:ignore="TouchTargetSizeCheck"/>
                 </LinearLayout>
-
-                <!-- Item cultivo 1: Maíz -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_cultivo_maiz"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="14dp">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardBackgroundColor="#E8F5E9"
-                            app:cardElevation="0dp"
-                            android:layout_marginEnd="12dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:src="@drawable/ic_eco"
-                                    app:tint="#2E7D32"/>
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Maíz"
-                                android:textColor="#1B2A1E"
-                                android:textSize="15sp"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="2.5 ha · Crecimiento"
-                                android:textColor="#78909C"
-                                android:textSize="12sp"
-                                android:layout_marginTop="2dp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="end">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="45d"
-                                android:textColor="#2E7D32"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:gravity="end"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="para cosecha"
-                                android:textColor="#78909C"
-                                android:textSize="11sp"
-                                android:gravity="end"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Item cultivo 2: Papa -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_cultivo_papa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="14dp">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardBackgroundColor="#E8F5E9"
-                            app:cardElevation="0dp"
-                            android:layout_marginEnd="12dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:src="@drawable/ic_eco"
-                                    app:tint="#2E7D32"/>
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Papa"
-                                android:textColor="#1B2A1E"
-                                android:textSize="15sp"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1.8 ha · Siembra"
-                                android:textColor="#78909C"
-                                android:textSize="12sp"
-                                android:layout_marginTop="2dp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="end">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="120d"
-                                android:textColor="#2E7D32"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:gravity="end"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="para cosecha"
-                                android:textColor="#78909C"
-                                android:textSize="11sp"
-                                android:gravity="end"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Item cultivo 3: Quinua -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_cultivo_quinua"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="14dp">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardBackgroundColor="#E8F5E9"
-                            app:cardElevation="0dp"
-                            android:layout_marginEnd="12dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:src="@drawable/ic_eco"
-                                    app:tint="#2E7D32"/>
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Quinua"
-                                android:textColor="#1B2A1E"
-                                android:textSize="15sp"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="3.0 ha · Floración"
-                                android:textColor="#78909C"
-                                android:textSize="12sp"
-                                android:layout_marginTop="2dp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="end">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="30d"
-                                android:textColor="#2E7D32"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:gravity="end"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="para cosecha"
-                                android:textColor="#78909C"
-                                android:textSize="11sp"
-                                android:gravity="end"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
+                <!-- ============================================================
+                     LISTA DE CULTIVOS
+                ============================================================ -->
                 <!-- RecyclerView para cargar dinámicamente desde BD -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_cultivos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:nestedScrollingEnabled="false"
                     tools:listitem="@layout/item_cultivo_dashboard"/>
 
