@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MINAGRI · SEPA"
-                    android:textColor="#C8E6C9"
+                    android:textColor="#FFFFFF"
                     android:textSize="11sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.08" />
@@ -61,8 +61,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="Precios mayoristas actualizados en tiempo real"
-            android:textColor="#C8E6C9"
-            android:textSize="13sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <!-- Búsqueda dentro del header -->
         <LinearLayout
@@ -169,7 +170,7 @@
                     android:text="Todos"
                     android:textColor="#FFFFFF"
                     android:textSize="13sp"
-                    app:backgroundTint="#2E7D32"
+                    app:backgroundTint="@color/verde"
                     app:cornerRadius="20dp"
                     android:layout_marginEnd="8dp" />
 

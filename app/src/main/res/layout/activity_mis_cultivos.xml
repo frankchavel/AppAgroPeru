@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MI CAMPO"
-                    android:textColor="#C8E6C9"
+                    android:textColor="@color/verdeOscuro"
                     android:textSize="11sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.08" />
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="Gestiona y monitorea tus cultivos activos"
-            android:textColor="#C8E6C9"
+            android:textColor="@color/verdeOscuro"
             android:textSize="13sp" />
 
         <!-- Tarjetas de resumen -->
