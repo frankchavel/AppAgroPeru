@@ -497,4 +497,5 @@
         app:itemTextColor="@color/bottom_nav_color_selector"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_bottom_nav" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

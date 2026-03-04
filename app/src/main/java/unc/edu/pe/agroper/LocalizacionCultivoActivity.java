@@ -89,11 +89,10 @@ public class LocalizacionCultivoActivity extends BaseActivity implements OnMapRe
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-
         // Configurar menú inferior (desde BaseActivity)
         setupBottomNavigation();
         selectBottomNavigationItem();
+
 
         findViewById(R.id.btn_ver_zonas).setOnClickListener(v -> {
             Intent intent = new Intent(this, ZonasAgricolasActivity.class);

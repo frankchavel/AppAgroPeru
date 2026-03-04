@@ -45,6 +45,10 @@ public class PreciosActivity extends BaseActivity {
             v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Configurar menú inferior (desde BaseActivity)
+        setupBottomNavigation();
+        selectBottomNavigationItem();
+
 
         // Configurar menú inferior (desde BaseActivity)
         setupBottomNavigation();

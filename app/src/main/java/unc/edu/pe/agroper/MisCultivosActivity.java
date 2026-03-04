@@ -47,10 +47,10 @@ public class MisCultivosActivity extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         // Configurar menú inferior (desde BaseActivity)
         setupBottomNavigation();
         selectBottomNavigationItem();
+
 
         findViewById(R.id.fab_nuevo_cultivo).setOnClickListener(v -> {
             Intent intent = new Intent(this, RegistroCultivoActivity.class);
@@ -68,7 +68,6 @@ public class MisCultivosActivity extends BaseActivity {
         apiService = RetrofitClient.getClient().create(ApiService.class);
 
         cargarCultivos();
-
 
     }
     private void cargarCultivos() {
