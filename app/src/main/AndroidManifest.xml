@@ -81,6 +81,9 @@
         <activity
             android:name=".RegistroUsuarioActivity"
             android:exported="false" />
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
