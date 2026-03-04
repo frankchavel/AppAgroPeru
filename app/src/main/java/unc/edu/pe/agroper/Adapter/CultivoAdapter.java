@@ -48,8 +48,8 @@ public class CultivoAdapter extends RecyclerView.Adapter<CultivoAdapter.ViewHold
     }
 
     public void actualizarLista(List<Cultivo> nuevaLista) {
-        this.lista.clear();
-        if (nuevaLista != null) this.lista.addAll(nuevaLista);
+        lista.clear();
+        lista.addAll(nuevaLista);
         notifyDataSetChanged();
     }
 

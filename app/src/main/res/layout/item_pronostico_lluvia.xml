@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#E3F2FD">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_dia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lunes"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#1565C0"/>
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginVertical="8dp"
+            android:src="@drawable/ic_rainy"
+            android:contentDescription="@string/weather_icon_desc"
+            app:tint="#1565C0"/>
+
+        <TextView
+            android:id="@+id/tv_probabilidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/probabilidad_default"
+            android:textStyle="bold"
+            android:textColor="#1565C0"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

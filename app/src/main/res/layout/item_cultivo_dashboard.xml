@@ -1,123 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- res/layout/item_cultivo_dashboard.xml
-     Usado por el RecyclerView rv_cultivos para cargar cultivos dinámicamente desde la BD -->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:clickable="true"
-    android:focusable="true"
-    app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="1dp">
+    android:layout_margin="8dp"
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="14dp"
-        android:paddingVertical="14dp">
+        android:orientation="vertical">
 
-        <!-- Ícono cultivo -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            app:cardCornerRadius="12dp"
-            app:cardBackgroundColor="#E8F5E9"
-            app:cardElevation="0dp"
-            android:layout_marginEnd="12dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-                <ImageView
-                    android:id="@+id/iv_cultivo_icono"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/ic_eco"
-                    app:tint="#2E7D32"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Nombre + detalle -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_item_nombre_cultivo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#1B2A1E"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:text="Maíz"/>
-
-            <!-- Área + Etapa -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="3dp">
-
-                <TextView
-                    android:id="@+id/tv_item_area"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#78909C"
-                    android:textSize="12sp"
-                    tools:text="2.5 ha"/>
-
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="4dp"
-                    android:background="#B0BEC5"
-                    android:layout_marginHorizontal="6dp"/>
-                <!-- ↑ pequeño punto separador -->
-
-                <TextView
-                    android:id="@+id/tv_item_etapa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#78909C"
-                    android:textSize="12sp"
-                    tools:text="Crecimiento"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Días para cosecha -->
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="end">
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="Nombre cultivo"/>
 
-            <TextView
-                android:id="@+id/tv_item_dias"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#2E7D32"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:gravity="end"
-                tools:text="45d"/>
+        <TextView
+            android:id="@+id/tv_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Área"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="para cosecha"
-                android:textColor="#78909C"
-                android:textSize="11sp"
-                android:gravity="end"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_estado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado"/>
+
+        <TextView
+            android:id="@+id/tv_fecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha cosecha"/>
 
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

@@ -15,6 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,38 +67,46 @@ public class MisCultivosActivity extends AppCompatActivity {
     }
     private void cargarCultivos() {
 
-        apiService.obtenerCultivos().enqueue(new Callback<List<Cultivo>>() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-            @Override
-            public void onResponse(Call<List<Cultivo>> call, Response<List<Cultivo>> response) {
+        if (user == null) {
+            Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                if (response.isSuccessful() && response.body() != null) {
+        String correo = user.getEmail();
 
-                    listaCultivos.clear();
-                    listaCultivos.addAll(response.body());
-                    adapter.notifyDataSetChanged();
+        apiService.obtenerCultivosPorUsuario(correo)
+                .enqueue(new Callback<List<Cultivo>>() {
 
-                    actualizarResumen();
-                    verificarEstadoVacio();
+                    @Override
+                    public void onResponse(Call<List<Cultivo>> call, Response<List<Cultivo>> response) {
 
-                } else {
+                        if (response.isSuccessful() && response.body() != null) {
 
-                    Toast.makeText(MisCultivosActivity.this,
-                            "Error al obtener cultivos",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
+                            listaCultivos.clear();
+                            listaCultivos.addAll(response.body());
+                            adapter.notifyDataSetChanged();
 
-            @Override
-            public void onFailure(Call<List<Cultivo>> call, Throwable t) {
+                            actualizarResumen();
+                            verificarEstadoVacio();
 
-                Toast.makeText(MisCultivosActivity.this,
-                        "Error conexión: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+                        } else {
+                            Toast.makeText(MisCultivosActivity.this,
+                                    "Error al obtener cultivos",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Cultivo>> call, Throwable t) {
+
+                        Toast.makeText(MisCultivosActivity.this,
+                                "Error conexión: " + t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
     }
-
     private void actualizarResumen() {
 
         tvTotalCultivos.setText(String.valueOf(listaCultivos.size()));
@@ -118,9 +129,11 @@ public class MisCultivosActivity extends AppCompatActivity {
             rvMisCultivos.setVisibility(View.VISIBLE);
         }
     }
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarCultivos();  // 🔥 Esto es lo que te falta
+    }
 
 
 }

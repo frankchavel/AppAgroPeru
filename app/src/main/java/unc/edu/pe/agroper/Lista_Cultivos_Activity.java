@@ -2,6 +2,7 @@ package unc.edu.pe.agroper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +12,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,32 +54,45 @@ public class Lista_Cultivos_Activity extends AppCompatActivity {
         cargarCultivos();
     }
 
+
+
+    private void cargarCultivos() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) return;
+
+        apiService.obtenerCultivosPorUsuario(user.getEmail())
+                .enqueue(new Callback<List<Cultivo>>() {
+
+                    @Override
+                    public void onResponse(Call<List<Cultivo>> call, Response<List<Cultivo>> response) {
+                        Log.d("DEBUG", "Código: " + response.code());
+
+                        if (response.body() != null) {
+                            Log.d("DEBUG", "Cantidad recibida: " + response.body().size());
+                        }
+
+                        if (response.isSuccessful() && response.body() != null) {
+                            adapter.actualizarLista(response.body());
+                        }
+                        if (response.isSuccessful() && response.body() != null) {
+                            adapter.actualizarLista(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Cultivo>> call, Throwable t) {
+                        Toast.makeText(Lista_Cultivos_Activity.this,
+                                "Error conexión: " + t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+        Log.d("CORREO_ACTUAL", user.getEmail());
+    }
     @Override
     protected void onResume() {
         super.onResume();
-        cargarCultivos();
-    }
-
-    private void cargarCultivos() {
-        apiService.obtenerCultivos().enqueue(new Callback<List<Cultivo>>() {
-            @Override
-            public void onResponse(Call<List<Cultivo>> call, Response<List<Cultivo>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    // Usa actualizarLista del adapter en lugar de notifyDataSetChanged
-                    adapter.actualizarLista(response.body());
-                } else {
-                    Toast.makeText(Lista_Cultivos_Activity.this,
-                            "Error al obtener cultivos",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Cultivo>> call, Throwable t) {
-                Toast.makeText(Lista_Cultivos_Activity.this,
-                        "Error conexión: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+        cargarCultivos(); // 🔥 Esto fuerza recarga cada vez que vuelves
     }
 }

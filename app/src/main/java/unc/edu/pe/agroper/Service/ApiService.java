@@ -68,4 +68,7 @@ public interface ApiService {
     @GET("api/insumo")
     Call<List<Recurso>> obtenerRecursos();
 
+    @GET("api/cultivo/usuario/correo/{correo}")
+    Call<List<Cultivo>> obtenerCultivosPorUsuario(
+            @Path(value = "correo", encoded = true) String correo);
 }

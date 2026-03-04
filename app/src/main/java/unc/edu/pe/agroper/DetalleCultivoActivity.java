@@ -36,7 +36,13 @@ public class DetalleCultivoActivity extends AppCompatActivity {
     private MaterialButton btnAsignar;
     private RecyclerView recyclerInsumos;
     private ApiService apiService;
+    private TextView tvTotalCostos;
     private int cultivoId;
+    private TextView tvTotalInsumos, tvManoObra, tvMaquinaria, tvTotalProduccion;
+
+    // Variables fijas (pueden venir luego desde BD)
+    private double costoManoObra = 0;
+    private double costoMaquinaria = 0;
 
     private List<CultivoInsumo> insumosAsignados = new ArrayList<>();
     private List<Recurso> todosLosInsumos = new ArrayList<>();
@@ -59,6 +65,11 @@ public class DetalleCultivoActivity extends AppCompatActivity {
         tvFecha = findViewById(R.id.tv_fecha_siembra);
         btnAsignar = findViewById(R.id.btn_asignar_insumo);
         recyclerInsumos = findViewById(R.id.recycler_insumos);
+        tvTotalCostos = findViewById(R.id.tv_total_costos);
+        tvTotalInsumos = findViewById(R.id.tv_total_insumos);
+        tvManoObra = findViewById(R.id.tv_mano_obra);
+        tvMaquinaria = findViewById(R.id.tv_maquinaria);
+        tvTotalProduccion = findViewById(R.id.tv_total_produccion);
         recyclerInsumos.setLayoutManager(new LinearLayoutManager(this));
 
         cargarDetalle();
@@ -143,6 +154,7 @@ public class DetalleCultivoActivity extends AppCompatActivity {
                             todosLosInsumos
                     );
                     recyclerInsumos.setAdapter(adapter);
+                    calcularTotalProduccion();
                 }
             }
 
@@ -168,5 +180,47 @@ public class DetalleCultivoActivity extends AppCompatActivity {
         } catch (Exception e) {
             return fechaISO;
         }
+    }
+    private void calcularTotalProduccion() {
+
+        double totalInsumos = 0;
+
+        for (CultivoInsumo ci : insumosAsignados) {
+
+            for (Recurso r : todosLosInsumos) {
+
+                if (r.getInsumoID() == ci.getInsumoID()) {
+
+                    double precio = r.getPrecioEstablecido();
+                    double cantidad = ci.getCantidad();
+
+                    double subtotal = precio * cantidad;
+
+                    totalInsumos += subtotal;
+                    break;
+                }
+            }
+        }
+
+        // 🔹 Ejemplo de cálculo de mano de obra
+        // Puedes cambiar lógica según tus necesidades
+        costoManoObra = totalInsumos * 0.15;   // 15% del costo insumos
+
+        // 🔹 Ejemplo de maquinaria
+        costoMaquinaria = totalInsumos * 0.10; // 10% del costo insumos
+
+        double totalProduccion = totalInsumos + costoManoObra + costoMaquinaria;
+
+        tvTotalInsumos.setText("Total Insumos: S/ " +
+                String.format(Locale.getDefault(), "%.2f", totalInsumos));
+
+        tvManoObra.setText("Mano de Obra: S/ " +
+                String.format(Locale.getDefault(), "%.2f", costoManoObra));
+
+        tvMaquinaria.setText("Maquinaria: S/ " +
+                String.format(Locale.getDefault(), "%.2f", costoMaquinaria));
+
+        tvTotalProduccion.setText("TOTAL PRODUCCIÓN: S/ " +
+                String.format(Locale.getDefault(), "%.2f", totalProduccion));
     }
 }
