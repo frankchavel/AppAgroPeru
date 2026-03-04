@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:background="#FDFBF7">
 
+
     <!-- HEADER VERDE -->
     <LinearLayout
         android:id="@+id/header"

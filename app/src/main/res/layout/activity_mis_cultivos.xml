@@ -9,6 +9,7 @@
     android:background="#FDFBF7"
     tools:context=".MisCultivosActivity">
 
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"

@@ -51,6 +51,7 @@ public class MisCultivosActivity extends BaseActivity {
         setupBottomNavigation();
         selectBottomNavigationItem();
 
+
         findViewById(R.id.fab_nuevo_cultivo).setOnClickListener(v -> {
             Intent intent = new Intent(this, RegistroCultivoActivity.class);
             startActivity(intent);

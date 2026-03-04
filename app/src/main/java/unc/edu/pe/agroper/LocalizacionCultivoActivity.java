@@ -93,6 +93,7 @@ public class LocalizacionCultivoActivity extends BaseActivity implements OnMapRe
         setupBottomNavigation();
         selectBottomNavigationItem();
 
+
         findViewById(R.id.btn_ver_zonas).setOnClickListener(v -> {
             Intent intent = new Intent(this, ZonasAgricolasActivity.class);
             startActivity(intent);
