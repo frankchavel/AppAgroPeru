@@ -88,10 +88,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void irAPantallaPrincipal() {
-        // Tu compañero tenía ParcelaActivity, yo te pongo MisCultivosActivity.
-        // Cambia esto a la pantalla que sea tu "Inicio" real.
-        Intent intent = new Intent(MainActivity.this, ParcelaActivity.class);
+        Intent intent = new Intent(MainActivity.this, CalendarioActivity.class);
         startActivity(intent);
-        finish(); // Cierra el Login
+        finish();
     }
 }
