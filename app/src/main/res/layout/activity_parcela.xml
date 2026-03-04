@@ -44,7 +44,7 @@
                     android:id="@+id/tv_saludo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Buenos días 👋"
+                    android:text="Bienvenido 👋"
                     android:textColor="@color/verdeOscuro"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,6 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_nombre_usuario"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

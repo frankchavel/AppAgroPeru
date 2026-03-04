@@ -36,6 +36,10 @@ public interface ApiService {
     @POST("api/usuario")
     Call<Usuario> crearUsuario(@Body Usuario usuario);
 
+    // NUEVO: Obtener usuario por correo
+    @GET("api/usuario/usuario/{email}")
+    Call<Usuario> obtenerUsuarioPorEmail(@Path("email") String email);
+
 
     // ZONAS
     @POST("api/zonaagricola")
@@ -65,6 +69,9 @@ public interface ApiService {
     Call<Void> registrarRecurso(@Body Map<String, Object> body);
     @GET("api/cultivoinsumocontroller")
     Call<List<CultivoInsumo>> obtenerCultivoInsumos();
+    @GET("api/cultivo/usuario/{correo}")
+    Call<List<Cultivo>> obtenerCultivosPorCorreo(@Path("correo") String correo);
+
     @GET("api/insumo")
     Call<List<Recurso>> obtenerRecursos();
 
