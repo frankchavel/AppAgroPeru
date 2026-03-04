@@ -31,7 +31,9 @@ import retrofit2.Response;
 import unc.edu.pe.agroper.Service.ApiService;
 import unc.edu.pe.agroper.Service.RetrofitClient;
 
-public class VisualizarZonasActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class VisualizarZonasActivity extends AppCompatActivity
+        implements OnMapReadyCallback {
+
     private GoogleMap googleMap;
     private ApiService apiService;
     private View mainView;
@@ -58,11 +60,13 @@ public class VisualizarZonasActivity extends AppCompatActivity implements OnMapR
 
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
+
         googleMap = map;
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setCompassEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(true);
 
         cargarZonasDesdeApi();
     }
@@ -70,53 +74,78 @@ public class VisualizarZonasActivity extends AppCompatActivity implements OnMapR
     private void cargarZonasDesdeApi() {
 
         apiService.obtenerZonas().enqueue(new Callback<List<ZonaAgricola>>() {
+
             @Override
             public void onResponse(Call<List<ZonaAgricola>> call,
                                    Response<List<ZonaAgricola>> response) {
 
-                if (response.isSuccessful() && response.body() != null) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    mostrarSnackbar("Error al cargar zonas");
+                    return;
+                }
 
-                    List<ZonaAgricola> zonas = response.body();
+                List<ZonaAgricola> zonas = response.body();
 
-                    if (zonas.isEmpty()) {
-                        mostrarSnackbar("No hay zonas registradas 🌾");
-                        return;
-                    }
+                if (zonas.isEmpty()) {
+                    mostrarSnackbar("No hay zonas registradas 🌾");
+                    return;
+                }
 
-                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                googleMap.clear(); // 🔥 Limpia marcadores anteriores
 
-                    for (ZonaAgricola zona : zonas) {
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-                        LatLng latLng = new LatLng(
-                                zona.getLatitud(),
-                                zona.getLongitud()
-                        );
+                int zonasValidas = 0;
+                LatLng unicaZona = null;
 
-                        Marker marker = googleMap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .title(zona.getNombreZona()) // ← Nombre visible
-                                .snippet(zona.getDescripcion())
+                for (ZonaAgricola zona : zonas) {
 
-                                .icon(BitmapDescriptorFactory
-                                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    if (zona.getLatitud() == 0 && zona.getLongitud() == 0)
+                        continue; // evita coordenadas inválidas
 
-                        if (marker != null) {
-                            marker.showInfoWindow(); // ← Esto hace que el nombre se vea siempre
-                        }
+                    LatLng latLng = new LatLng(
+                            zona.getLatitud(),
+                            zona.getLongitud()
+                    );
 
-                        builder.include(latLng);
-                    }
+                    unicaZona = latLng;
+                    zonasValidas++;
 
-                    // Ajustar cámara para mostrar todas
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .title(zona.getNombreZona())
+                            .snippet(zona.getDescripcion())
+                            .icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+                    builder.include(latLng);
+                }
+
+                if (zonasValidas == 0) {
+                    mostrarSnackbar("Zonas sin coordenadas válidas");
+                    return;
+                }
+
+                // 🔥 SI SOLO HAY UNA ZONA
+                if (zonasValidas == 1 && unicaZona != null) {
+
                     googleMap.animateCamera(
-                            CameraUpdateFactory.newLatLngBounds(
-                                    builder.build(),
-                                    150
-                            )
+                            CameraUpdateFactory.newLatLngZoom(unicaZona, 18f)
                     );
 
                 } else {
-                    mostrarSnackbar("Error al cargar zonas");
+
+                    // 🔥 Ajustar cámara para mostrar todas correctamente
+                    googleMap.setOnMapLoadedCallback(() -> {
+
+                        int padding = 200; // espacio alrededor
+
+                        LatLngBounds bounds = builder.build();
+
+                        googleMap.animateCamera(
+                                CameraUpdateFactory.newLatLngBounds(bounds, padding)
+                        );
+                    });
                 }
             }
 

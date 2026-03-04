@@ -78,4 +78,10 @@ public interface ApiService {
     @GET("api/cultivo/usuario/correo/{correo}")
     Call<List<Cultivo>> obtenerCultivosPorUsuario(
             @Path(value = "correo", encoded = true) String correo);
+    @DELETE("api/cultivo/{id}")
+    Call<Void> eliminarCultivo(@Path("id") int id);
+
+    @DELETE("api/zonaagricola/{id}")
+    Call<Void> eliminarZona(@Path("id") int id);
+
 }

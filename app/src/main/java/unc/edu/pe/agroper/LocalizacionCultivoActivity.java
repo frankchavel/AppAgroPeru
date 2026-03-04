@@ -70,6 +70,7 @@ public class LocalizacionCultivoActivity extends BaseActivity implements OnMapRe
     private FloatingActionButton fabLocation;
     private Chip chipUbicacionActual;
     private MaterialCardView cardCoordsStatus;
+
     private View mainView;
 
     private ApiService apiService;

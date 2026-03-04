@@ -45,7 +45,16 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
                 android:background="@drawable/bg_tag_activo"/>
+            <ImageButton
+                android:id="@+id/btnEliminar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_delete"
+                app:tint="#D32F2F"
+                android:layout_gravity="end"/>
         </LinearLayout>
+
 
         <!-- Info rápida -->
         <TextView

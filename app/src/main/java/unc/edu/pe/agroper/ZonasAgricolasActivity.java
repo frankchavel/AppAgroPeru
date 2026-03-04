@@ -40,7 +40,7 @@ public class ZonasAgricolasActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerZonas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ZonaAdapter(lista);
+        adapter = new ZonaAdapter(this, lista);
         recyclerView.setAdapter(adapter);
 
         apiService = RetrofitClient.getClient().create(ApiService.class);
@@ -76,5 +76,6 @@ public class ZonasAgricolasActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+
     }
 }

@@ -67,6 +67,7 @@ public class RegistroCultivoActivity extends AppCompatActivity {
     private AutoCompleteTextView actvEstado;
     private MaterialButton btnGuardar, btnSeleccionarZona;
 
+
     // Data
     private int zonaID = 0;
 
@@ -164,7 +165,6 @@ public class RegistroCultivoActivity extends AppCompatActivity {
             tvZonaNombre.setText(nombre != null ? nombre : "Zona #" + zonaID);
             tvZonaCoords.setText(String.format(Locale.US, "%.5f, %.5f", lat, lng));
         }
-
     }
 
     private void validarYGuardar() {

@@ -1,40 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:padding="12dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:strokeWidth="1dp"
+    app:strokeColor="#E8F5E9">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_nombre"
-            android:layout_width="wrap_content"
+        <!-- Fila superior: Nombre + Estado + Eliminar -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="Nombre cultivo"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Área"/>
+            <!-- Ícono de cultivo -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:contentDescription="Cultivo"/>
 
-        <TextView
-            android:id="@+id/tv_estado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Estado"/>
+            <!-- Nombre y área -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp">
 
-        <TextView
-            android:id="@+id/tv_fecha"
-            android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Papa Amarilla"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:textColor="#1B5E20"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <TextView
+                    android:id="@+id/tv_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Área: 2.5 ha  |  Zona: Cajamarca"
+                    android:textSize="12sp"
+                    android:textColor="#757575"
+                    android:layout_marginTop="2dp"/>
+
+            </LinearLayout>
+
+            <!-- Chip de estado ACTIVO -->
+            <TextView
+                android:id="@+id/tv_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTIVO"
+                android:textSize="11sp"
+                android:textColor="#2E7D32"
+                android:textStyle="bold"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:layout_marginEnd="8dp"/>
+
+
+        </LinearLayout>
+
+        <!-- Divider sutil -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F1F8E9"
+            android:layout_marginVertical="12dp"/>
+
+        <!-- Barra de progreso con días -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha cosecha"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="6dp">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                app:tint="#43A047"
+                android:contentDescription="Días"/>
+
+            <TextView
+                android:id="@+id/tv_dias"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Día 45 de 90"
+                android:textSize="12sp"
+                android:textColor="#555555"
+                android:layout_marginStart="6dp"/>
+
+            <TextView
+                android:id="@+id/tv_fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cosecha: 12d"
+                android:textSize="12sp"
+                android:textColor="#43A047"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <!-- Barra de progreso verde -->
+        <ProgressBar
+            android:id="@+id/progress_cultivo"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:progress="50"
+            android:max="100"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Botones de acción -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+        </LinearLayout>
 
     </LinearLayout>
 

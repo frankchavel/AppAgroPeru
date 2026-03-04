@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -63,6 +64,16 @@ public class MisCultivosActivity extends BaseActivity {
 
         rvMisCultivos.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CultivoAdapter(this, listaCultivos);
+
+        adapter.setOnEliminarCultivoListener((cultivo, position) -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Eliminar cultivo")
+                    .setMessage("¿Seguro que deseas eliminar este cultivo?")
+                    .setPositiveButton("Sí", (dialog, which) ->
+                            eliminarCultivo(cultivo, position))
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+        });
         rvMisCultivos.setAdapter(adapter);
 
         apiService = RetrofitClient.getClient().create(ApiService.class);
@@ -138,6 +149,42 @@ public class MisCultivosActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         cargarCultivos();  // 🔥 Esto es lo que te falta
+    }
+    private void eliminarCultivo(Cultivo cultivo, int position) {
+
+        apiService.eliminarCultivo(cultivo.getCultivoID())
+                .enqueue(new Callback<Void>() {
+
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+
+                        if (response.isSuccessful()) {
+
+                            listaCultivos.remove(position);
+                            adapter.notifyItemRemoved(position);
+
+                            actualizarResumen();
+                            verificarEstadoVacio();
+
+                            Toast.makeText(MisCultivosActivity.this,
+                                    "Cultivo eliminado",
+                                    Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(MisCultivosActivity.this,
+                                    "No se pudo eliminar",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                        Toast.makeText(MisCultivosActivity.this,
+                                "Error: " + t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 
