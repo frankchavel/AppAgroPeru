@@ -27,28 +27,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_nav);
         if (bottomNavigationView == null) return;
 
-        // Configurar listener para todos los items del menú
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        int itemId = item.getItemId();
+        // Configurar listener para todos los items del menú (Versión moderna)
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
 
-                        // No hacer nada si ya estamos en la Activity actual
-                        if (isCurrentActivity(itemId)) {
-                            return true;
-                        }
+            // No hacer nada si ya estamos en la Activity actual
+            if (isCurrentActivity(itemId)) {
+                return true;
+            }
 
-                        // Navegar según el item seleccionado
-                        navigateToDestination(itemId);
-                        return true;
-                    }
-                });
+            // Navegar según el item seleccionado
+            navigateToDestination(itemId);
+            return true;
+        });
     }
 
     /**
      * Verificar si el item corresponde a la Activity actual
-     * (Usando nombres de clases en lugar de instanceof para evitar errores)
      */
     private boolean isCurrentActivity(int menuItemId) {
         String currentClassName = this.getClass().getSimpleName();
@@ -62,8 +57,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else if (menuItemId == R.id.nav_calendario && currentClassName.equals("CalendarioActivity")) {
             return true;
         } else if (menuItemId == R.id.nav_mercado && currentClassName.equals("PreciosActivity")) {
-            return true;
-        } else if (menuItemId == R.id.nav_perfil && currentClassName.equals("PerfilActivity")) {
             return true;
         }
         return false;
@@ -90,8 +83,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             intent = new Intent(this, CalendarioActivity.class);
         } else if (menuItemId == R.id.nav_mercado) {
             intent = new Intent(this, PreciosActivity.class);
-        } else if (menuItemId == R.id.nav_perfil) {
-            intent = new Intent(this, PerfilActivity.class);
         }
 
         if (intent != null) {
@@ -119,8 +110,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             bottomNavigationView.setSelectedItemId(R.id.nav_calendario);
         } else if (currentClassName.equals("PreciosActivity")) {
             bottomNavigationView.setSelectedItemId(R.id.nav_mercado);
-        } else if (currentClassName.equals("PerfilActivity")) {
-            bottomNavigationView.setSelectedItemId(R.id.nav_perfil);
         }
     }
 }
