@@ -32,5 +32,6 @@ public class CalendarioActivity extends BaseActivity {
 
         binding.btnAnadirTarea.setOnClickListener(v -> startActivity(new Intent(this, AgregarRecordatorioActivity.class)));
 
+
     }
 }

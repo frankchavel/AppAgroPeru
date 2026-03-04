@@ -29,5 +29,6 @@ public class PerfilActivity extends BaseActivity {
         // Configurar menú inferior (desde BaseActivity)
         setupBottomNavigation();
         selectBottomNavigationItem();
+
     }
 }

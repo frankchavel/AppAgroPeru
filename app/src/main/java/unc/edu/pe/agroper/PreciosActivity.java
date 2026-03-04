@@ -50,6 +50,7 @@ public class PreciosActivity extends BaseActivity {
         setupBottomNavigation();
         selectBottomNavigationItem();
 
+
         // ── Referencias ───────────────────────────────────────────────
         RecyclerView rv   = findViewById(R.id.rv_precios);
         etBuscar          = findViewById(R.id.et_buscar);

@@ -52,6 +52,7 @@ public class ParcelaActivity extends BaseActivity {
     private WeatherApiService weatherService;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

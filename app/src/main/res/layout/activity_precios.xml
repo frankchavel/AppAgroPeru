@@ -230,6 +230,7 @@
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/item_precio_mercado" />
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"

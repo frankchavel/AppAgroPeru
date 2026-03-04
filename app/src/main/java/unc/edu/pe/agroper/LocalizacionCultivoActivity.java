@@ -90,6 +90,7 @@ public class LocalizacionCultivoActivity extends BaseActivity implements OnMapRe
             return insets;
         });
 
+
         // Configurar menú inferior (desde BaseActivity)
         setupBottomNavigation();
         selectBottomNavigationItem();

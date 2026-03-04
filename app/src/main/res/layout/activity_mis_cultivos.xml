@@ -322,6 +322,7 @@
         app:iconTint="#0C1324"
         app:elevation="6dp" />
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
