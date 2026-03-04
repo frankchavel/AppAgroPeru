@@ -280,6 +280,7 @@ public class ParcelaActivity extends AppCompatActivity {
                 Toast.makeText(this,
                         "Permiso de ubicación denegado",
                         Toast.LENGTH_LONG).show();
+
             }
         }
     }
