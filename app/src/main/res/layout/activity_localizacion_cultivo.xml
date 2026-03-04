@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +35,6 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="14dp">
 
-                <!-- Botón Back -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -91,7 +89,6 @@
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <!-- INDICADOR GPS FLOTANTE -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_coords_status"
         android:layout_width="wrap_content"
@@ -126,7 +123,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- FABs DERECHA -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -166,12 +162,12 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
-    <!-- BOTTOM SHEET -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottom_sheet_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="64dp"
         app:cardCornerRadius="32dp"
         app:cardElevation="20dp"
         app:cardBackgroundColor="#FFFFFF">
@@ -189,7 +185,6 @@
                 android:paddingBottom="28dp"
                 android:paddingTop="14dp">
 
-                <!-- Handle pill -->
                 <View
                     android:layout_width="40dp"
                     android:layout_height="4dp"
@@ -197,7 +192,6 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="18dp"/>
 
-                <!-- Encabezado -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -240,7 +234,6 @@
                             android:textSize="12sp"/>
                     </LinearLayout>
 
-                    <!-- Badge pin -->
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -262,14 +255,12 @@
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
-                <!-- Divider -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E8F5E9"
                     android:layout_marginBottom="18dp"/>
 
-                <!-- Label Nombre -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -280,13 +271,12 @@
                     android:letterSpacing="0.1"
                     android:layout_marginBottom="6dp"/>
 
-                <!-- Campo Nombre -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_nombre_zona"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Ej: Parcela Norte - Sector A"
+                    android:hint="        Ej: Parcela Norte - Sector A"
                     app:boxCornerRadiusTopStart="14dp"
                     app:boxCornerRadiusTopEnd="14dp"
                     app:boxCornerRadiusBottomStart="14dp"
@@ -307,7 +297,6 @@
                         android:textColorHint="#A5D6A7"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Label Descripción -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -318,13 +307,12 @@
                     android:letterSpacing="0.1"
                     android:layout_marginBottom="6dp"/>
 
-                <!-- Campo Descripción -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_descripcion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Cultivo, características del suelo..."
+                    android:hint="       Cultivo, características del suelo..."
                     app:boxCornerRadiusTopStart="14dp"
                     app:boxCornerRadiusTopEnd="14dp"
                     app:boxCornerRadiusBottomStart="14dp"
@@ -347,7 +335,6 @@
                         android:textColorHint="#A5D6A7"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Card Coordenadas GPS -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -450,7 +437,6 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Botones -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -499,4 +485,15 @@
         </androidx.core.widget.NestedScrollView>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFF"
+        app:elevation="30dp"
+        app:itemIconTint="@color/bottom_nav_color_selector"
+        app:itemTextColor="@color/bottom_nav_color_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_bottom_nav" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

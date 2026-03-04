@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import unc.edu.pe.agroper.databinding.ActivityCalendarioBinding;
 
-public class CalendarioActivity extends AppCompatActivity {
+public class CalendarioActivity extends BaseActivity {
 
     ActivityCalendarioBinding binding;
 
@@ -26,6 +26,10 @@ public class CalendarioActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Configurar menú inferior (desde BaseActivity)
+        setupBottomNavigation();
+        selectBottomNavigationItem();
+
         binding.btnAnadirTarea.setOnClickListener(v -> startActivity(new Intent(this, AgregarRecordatorioActivity.class)));
 
     }

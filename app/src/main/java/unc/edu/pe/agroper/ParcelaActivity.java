@@ -42,7 +42,7 @@ import unc.edu.pe.agroper.Service.Clima.WeatherResponse;
 import unc.edu.pe.agroper.Service.Clima.WeatherRetrofitClient;
 import unc.edu.pe.agroper.Service.RetrofitClient;
 
-public class ParcelaActivity extends AppCompatActivity {
+public class ParcelaActivity extends BaseActivity {
     private TextView tvTemp, tvDesc, tvHumedad, tvLluvia, tvViento;
     private ProgressBar pbClima;
     private FusedLocationProviderClient fusedLocationClient;
@@ -62,6 +62,11 @@ public class ParcelaActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Configurar menú inferior (desde BaseActivity)
+        setupBottomNavigation();
+        selectBottomNavigationItem();
+
         // Botón: Ver Mapa → ZonaAgricolaActivity
         findViewById(R.id.btn_ver_mapa).setOnClickListener(v -> {
             Intent intent = new Intent(this, VisualizarZonasActivity.class);

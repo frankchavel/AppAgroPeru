@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import unc.edu.pe.agroper.Adapter.PrecioAdapter;
 import unc.edu.pe.agroper.Service.Precios.SepaService;
 
-public class PreciosActivity extends AppCompatActivity {
+public class PreciosActivity extends BaseActivity {
     private PrecioAdapter adapter;
     private TextView tvUltimaAct;
     private TextView tvMercadoSelector;
@@ -45,6 +45,10 @@ public class PreciosActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Configurar menú inferior (desde BaseActivity)
+        setupBottomNavigation();
+        selectBottomNavigationItem();
 
         // ── Referencias ───────────────────────────────────────────────
         RecyclerView rv   = findViewById(R.id.rv_precios);

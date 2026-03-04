@@ -26,7 +26,7 @@ import unc.edu.pe.agroper.Adapter.CultivoAdapter;
 import unc.edu.pe.agroper.Service.ApiService;
 import unc.edu.pe.agroper.Service.RetrofitClient;
 
-public class MisCultivosActivity extends AppCompatActivity {
+public class MisCultivosActivity extends BaseActivity {
     RecyclerView rvMisCultivos;
     LinearLayout layoutVacio;
     TextView tvTotalCultivos, tvTotalHectareas;
@@ -44,6 +44,11 @@ public class MisCultivosActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Configurar menú inferior (desde BaseActivity)
+        setupBottomNavigation();
+        selectBottomNavigationItem();
+
         findViewById(R.id.fab_nuevo_cultivo).setOnClickListener(v -> {
             Intent intent = new Intent(this, RegistroCultivoActivity.class);
             startActivity(intent);
